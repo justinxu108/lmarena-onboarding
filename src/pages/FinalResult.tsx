@@ -4,9 +4,10 @@ import { PASSING_SCORE } from '../data/questions';
 interface FinalResultProps {
   score: number;
   totalQuestions: number;
+  onRetry?: () => void;
 }
 
-export default function FinalResult({ score, totalQuestions }: FinalResultProps) {
+export default function FinalResult({ score, totalQuestions, onRetry }: FinalResultProps) {
   const passed = score >= PASSING_SCORE;
   const correctCount = Math.round(score * totalQuestions);
   const percentage = Math.round(score * 100);
@@ -74,13 +75,24 @@ export default function FinalResult({ score, totalQuestions }: FinalResultProps)
             </p>
           </div>
         ) : (
-          <div className="space-y-3">
+          <div className="space-y-4">
             <p className="text-sm text-white/50 leading-relaxed">
               Your score didn't meet the {Math.round(PASSING_SCORE * 100)}% passing threshold. Your result has been recorded.
             </p>
             <p className="text-xs text-white/30 leading-relaxed">
               Please review the LMArena workflow document and the learning material again before reattempting.
             </p>
+            {onRetry && (
+              <motion.button
+                onClick={onRetry}
+                className="px-8 py-3 rounded-2xl text-sm font-semibold bg-gradient-to-r from-accent to-purple-500 text-white shadow-[0_4px_20px_rgba(99,102,241,0.4)] hover:shadow-[0_6px_30px_rgba(99,102,241,0.5)] hover:scale-[1.02] active:scale-[0.98] transition-all duration-300"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ delay: 0.8 }}
+              >
+                Review Material & Retry
+              </motion.button>
+            )}
           </div>
         )}
       </motion.div>

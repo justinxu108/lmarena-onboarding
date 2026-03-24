@@ -63,6 +63,10 @@ export default function App() {
         <FinalResult
           score={finalScore}
           totalQuestions={ASSESSMENT_QUESTIONS.length}
+          onRetry={finalScore < 0.8 ? () => {
+            startTimeRef.current = Date.now();
+            setStep('learn');
+          } : undefined}
         />
       )}
     </>

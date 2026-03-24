@@ -136,7 +136,7 @@ const slides: Slide[] = [
         <StepCard
           number={5}
           title="Submit the Task"
-          description="Ensure all submission requirements are met: preference is Model 2 or Neither, justification is 20-100 words, at least 3 criteria with at least 1 Critical and 1 Major, rubric score is within acceptable range, and autograder has been run."
+          description="Ensure all submission requirements are met: preference is Model 2 or Neither, justification is 20-100 words, at least 3 criteria with at least 1 Critical and 1 Major, rubric score is less than 75% (note: Studio UI may still show 30-70% — for LMArena, anything under 75% is acceptable), and autograder has been run."
           image="/images/submission-requirements.png"
         />
       </div>
@@ -282,20 +282,21 @@ const slides: Slide[] = [
                 <th className="px-2.5 py-2 text-left font-semibold text-white/40 uppercase tracking-wider w-8">#</th>
                 <th className="px-2.5 py-2 text-left font-semibold text-white/40 uppercase tracking-wider">Description</th>
                 <th className="px-2.5 py-2 text-left font-semibold text-white/40 uppercase tracking-wider w-16">Weight</th>
+                <th className="px-2.5 py-2 text-left font-semibold text-white/40 uppercase tracking-wider w-20">Tag</th>
                 <th className="px-2.5 py-2 text-left font-semibold text-white/40 uppercase tracking-wider w-16">Grade</th>
               </tr>
             </thead>
             <tbody>
               {([
-                { n: 1, desc: 'States that 127,073 Delta SkyMiles is good.', w: 'Critical', g: 'Not Met', hl: false },
-                { n: 2, desc: 'States miles can be redeemed for flights.', w: 'Critical', g: 'Met', hl: false },
-                { n: 3, desc: 'States miles can be redeemed for upgrades.', w: 'Critical', g: 'Met', hl: false },
-                { n: 4, desc: 'Miles redeemable for non-flight options (merchandise, hotels, car rentals).', w: 'Major', g: 'Met', hl: true },
-                { n: 5, desc: 'How to get best value (off-peak dates, booking early, partner airlines).', w: 'Major', g: 'Not Met', hl: true },
-                { n: 6, desc: 'Presents results in clear, organized format.', w: 'Minor', g: 'Met', hl: false },
-                { n: 7, desc: 'Estimates for flight redemptions (domestic, international).', w: 'Major', g: 'Met', hl: true },
-                { n: 8, desc: 'Estimates for upgrade redemptions (first class, business, premium).', w: 'Major', g: 'Met', hl: true },
-                { n: 9, desc: 'Recommends against non-flight redemptions (lower value).', w: 'Minor', g: 'Met', hl: false },
+                { n: 1, desc: 'States that 127,073 Delta SkyMiles is good.', w: 'Critical', tag: 'Final Answer', g: 'Not Met', hl: false },
+                { n: 2, desc: 'States miles can be redeemed for flights.', w: 'Critical', tag: 'Final Answer', g: 'Met', hl: false },
+                { n: 3, desc: 'States miles can be redeemed for upgrades.', w: 'Critical', tag: 'Final Answer', g: 'Met', hl: false },
+                { n: 4, desc: 'Miles redeemable for non-flight options (merchandise, hotels, car rentals).', w: 'Major', tag: 'Final Answer', g: 'Met', hl: true },
+                { n: 5, desc: 'How to get best value (off-peak dates, booking early, partner airlines).', w: 'Major', tag: 'Reasoning', g: 'Not Met', hl: true },
+                { n: 6, desc: 'Presents results in clear, organized format.', w: 'Minor', tag: 'Style', g: 'Met', hl: false },
+                { n: 7, desc: 'Estimates for flight redemptions (domestic, international).', w: 'Major', tag: 'Reasoning', g: 'Met', hl: true },
+                { n: 8, desc: 'Estimates for upgrade redemptions (first class, business, premium).', w: 'Major', tag: 'Reasoning', g: 'Met', hl: true },
+                { n: 9, desc: 'Recommends against non-flight redemptions (lower value).', w: 'Minor', tag: 'Reasoning', g: 'Met', hl: false },
               ] as const).map((row) => {
                 const bgClass = row.hl ? 'bg-amber-500/5' : '';
                 const wColor = row.w === 'Critical' ? 'bg-red-500/20 text-red-300' : row.w === 'Major' ? 'bg-amber-500/20 text-amber-300' : 'bg-white/10 text-white/50';
@@ -305,6 +306,7 @@ const slides: Slide[] = [
                     <td className="px-2.5 py-2 text-white/50">{row.n}</td>
                     <td className="px-2.5 py-2 text-white/70">{row.desc}</td>
                     <td className="px-2.5 py-2"><span className={`px-1.5 py-0.5 rounded text-[9px] font-semibold ${wColor}`}>{row.w}</span></td>
+                    <td className="px-2.5 py-2 text-white/50">{row.tag}</td>
                     <td className={`px-2.5 py-2 font-semibold ${gColor}`}>{row.g}</td>
                   </tr>
                 );
@@ -345,7 +347,7 @@ const slides: Slide[] = [
           </div>
           <ComparisonRow label="Model responses" old="Evaluate 1 model" new="Compare 2 models side by side" />
           <ComparisonRow label="Prompt focus" old="Any domain (per expertise)" new="Consumer-focused everyday use cases" />
-          <ComparisonRow label="Prompt style" old="Designed to cause 30-70% failure" new="Simple, natural, open-ended" />
+          <ComparisonRow label="Prompt style" old="Targets 30-70% score range" new="Simple, natural, open-ended" />
           <ComparisonRow label="Rubric approach" old="Objective grading" new="Preference-based + objective" />
           <ComparisonRow label="Acceptable score" old="30-70%" new="Less than 75%" />
           <ComparisonRow label="Major criteria" old="Only explicitly asked elements" new="Can include helpful extras" />
