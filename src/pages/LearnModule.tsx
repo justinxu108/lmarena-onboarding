@@ -55,7 +55,7 @@ const slides: Slide[] = [
             LMArena tasks are a new task type where you <strong className="text-white/90">compare two AI model responses</strong> side by side and evaluate which one is better. This is fundamentally different from regular tasks where you evaluate a single model's output.
           </p>
           <p className="text-sm text-white/70 leading-relaxed">
-            The goal is to <strong className="text-white/90">capture and compare rubrics of Model 1</strong> (the client model) against a competing model, helping identify where the client model falls short.
+            The goal is to <strong className="text-white/90">evaluate the client model (Model 1)</strong> by comparing it against a competing model (Model 2), building a rubric that captures where Model 1 falls short.
           </p>
         </div>
 
@@ -73,6 +73,10 @@ const slides: Slide[] = [
             <li className="flex items-start gap-2 text-xs text-white/60">
               <span className="text-accent-light mt-0.5">&#x2022;</span>
               After claiming, they appear in your regular Writing/Reviewing dashboards
+            </li>
+            <li className="flex items-start gap-2 text-xs text-white/60">
+              <span className="text-accent-light mt-0.5">&#x2022;</span>
+              The Studio UI labels models as <strong className="text-white/80">Model 1</strong> and <strong className="text-white/80">Model 2</strong> (examples may also use Model A/B — these are the same thing: Model 1 = Model A = client)
             </li>
           </ul>
         </div>
@@ -102,31 +106,31 @@ const slides: Slide[] = [
         <StepCard
           number={1}
           title="Submit Your Prompt & Compare Responses"
-          description="Enter your prompt in the Conversation tab. Two model responses appear side by side (Model 1 and Model 2). Read both carefully to determine which is stronger."
+          description="Enter your prompt in the Conversation tab. Two model responses appear (Model 1 and Model 2). Read both carefully to determine which is stronger."
           image="/images/conversation-tab.png"
         />
         <StepCard
           number={2}
           title="Record Your Preference"
-          description="In the Annotation tab, select your preferred model and confidence level (High/Medium/Low). Write a 20-100 word justification. You can only proceed if you select Model 2 or Neither."
+          description="In the Annotation tab, select your preferred model and confidence level. Write a 20-100 word justification explaining why. You can only proceed if you select Model 2 or Neither — if Model 1 is better, you cannot continue with that task."
           image="/images/model-preference.png"
         />
         <StepCard
           number={3}
           title="Create the Golden Scaffolding"
-          description="Write bullet points outlining what an ideal response should include: core requirements, quality factors, and strong elements from the preferred response that the client model missed."
+          description="Write bullet points outlining what an ideal response should include: core prompt requirements, quality factors, and strong elements from the preferred response that the client model missed."
           image="/images/golden-scaffolding.png"
         />
         <StepCard
           number={4}
           title="Generate & Review the Rubric"
-          description="Click 'Generate Rubric' to auto-create criteria from your scaffolding. Review descriptions, verify tags (weight, category, type), and grade each criterion against the client model's response."
+          description="Click 'Generate Rubric' to auto-create criteria from your scaffolding. Review descriptions, verify tags (weight, category, type), and grade each criterion against Model 1's (the client's) response."
           image="/images/rubric-table.png"
         />
         <StepCard
           number={5}
           title="Submit the Task"
-          description="Ensure all submission requirements are met (completed turn, preference selected, at least 3 criteria, score between acceptable range, etc.), then submit for review."
+          description="Ensure all submission requirements are met: preference is Model 2 or Neither, justification is 20-100 words, at least 3 criteria with at least 1 Critical and 1 Major, rubric score is within the acceptable range, and autograder has been run."
           image="/images/submission-requirements.png"
         />
       </div>
@@ -138,8 +142,8 @@ const slides: Slide[] = [
     content: (
       <div className="space-y-4">
         <div className="glass-subtle rounded-xl p-4">
-          <p className="text-sm text-white/70 leading-relaxed mb-3">
-            LMArena prompts should reflect <strong className="text-white/90">realistic consumer requests</strong> — the kind of thing an average person would naturally ask an AI assistant for help with.
+          <p className="text-sm text-white/70 leading-relaxed">
+            LMArena prompts should reflect <strong className="text-white/90">realistic consumer requests</strong> — the kind of thing an average person would naturally ask an AI assistant for help with. The simpler the better: some of the best prompts are 3-5 sentences long, under 100 words, with fewer than 5 constraints.
           </p>
         </div>
 
@@ -148,19 +152,15 @@ const slides: Slide[] = [
           <ul className="space-y-2">
             <li className="flex items-start gap-2 text-xs text-white/60">
               <span className="text-emerald-400 mt-0.5">&#x2713;</span>
-              Suggested focus areas include <strong className="text-white/80">home & household, lifestyle, and (simple) personal finance</strong>, but not limited to these
+              <strong className="text-white/80">Focus on everyday use cases</strong> — mimic real-world situations where someone would turn to an AI. Suggested areas include home & household, lifestyle, and personal finance, but not limited to these.
             </li>
             <li className="flex items-start gap-2 text-xs text-white/60">
               <span className="text-emerald-400 mt-0.5">&#x2713;</span>
-              Keep them <strong className="text-white/80">simple and open-ended</strong> — avoid rigid constraints
+              <strong className="text-white/80">Keep them simple and open-ended</strong> — avoid overly rigid constraints, artificial formatting requirements, or excessive instructions
             </li>
             <li className="flex items-start gap-2 text-xs text-white/60">
               <span className="text-emerald-400 mt-0.5">&#x2713;</span>
-              Use <strong className="text-white/80">natural phrasing</strong> — should sound like a real person asking
-            </li>
-            <li className="flex items-start gap-2 text-xs text-white/60">
-              <span className="text-emerald-400 mt-0.5">&#x2713;</span>
-              Best prompts are <strong className="text-white/80">3-5 sentences, under 100 words, fewer than 5 constraints</strong>
+              <strong className="text-white/80">Use natural phrasing</strong> — should sound like something a person would actually type into ChatGPT or another AI assistant
             </li>
           </ul>
         </div>
@@ -169,17 +169,19 @@ const slides: Slide[] = [
           <div className="glass-subtle rounded-xl p-3">
             <p className="text-[10px] font-semibold text-emerald-400 uppercase tracking-wider mb-2">Good Examples</p>
             <ul className="space-y-1.5 text-[11px] text-white/60">
+              <li>"Is it worth buying noise-cancelling headphones for studying?"</li>
               <li>"What's the difference between ceramic and stainless steel cookware?"</li>
-              <li>"How can I stay productive when working from home?"</li>
-              <li>"What should I pack for a 3-day hiking trip?"</li>
+              <li>"How do I choose a good mattress?"</li>
+              <li>"What does SPF actually mean in sunscreen?"</li>
             </ul>
           </div>
           <div className="glass-subtle rounded-xl p-3">
             <p className="text-[10px] font-semibold text-red-400 uppercase tracking-wider mb-2">Avoid</p>
             <ul className="space-y-1.5 text-[11px] text-white/60">
               <li>Overly technical or domain-specific prompts</li>
-              <li>Prompts with rigid formatting requirements</li>
-              <li>Prompts that require specialized knowledge</li>
+              <li>Rigid formatting requirements or excessive constraints</li>
+              <li>Prompts requiring specialized professional knowledge</li>
+              <li>Prompts designed to trick or confuse the model</li>
             </ul>
           </div>
         </div>
@@ -193,36 +195,48 @@ const slides: Slide[] = [
       <div className="space-y-4">
         <div className="glass-subtle rounded-xl p-4">
           <p className="text-sm text-white/70 leading-relaxed">
-            LMArena rubrics are <strong className="text-white/90">more preference-based</strong> than regular rubrics. They capture personal perspectives and expertise, reflecting what makes a response <em>helpful</em> in addition to checking for correct reasoning.
+            LMArena rubrics are <strong className="text-white/90">more preference-based</strong> than regular rubrics. The guiding principle is that rubrics can capture <strong className="text-white/90">personal perspectives and expertise</strong>, reflecting what makes a response genuinely <em>helpful</em> — not just checking for correct reasoning.
           </p>
         </div>
 
         <div className="glass-subtle rounded-xl p-4">
-          <p className="text-xs font-semibold text-accent-light uppercase tracking-wider mb-3">Key Changes</p>
+          <p className="text-xs font-semibold text-accent-light uppercase tracking-wider mb-3">What Changed</p>
           <ul className="space-y-3">
             <li className="flex items-start gap-2 text-xs text-white/60">
               <span className="text-amber-400 mt-0.5 font-bold">!</span>
               <div>
-                <strong className="text-white/80">Acceptable failure range:</strong> Now anything less than 75% (previously 30-70%). Still try to include criteria that boost the score above 0%.
+                <strong className="text-white/80">Rubric score range:</strong> The acceptable score is now anything <strong className="text-white/80">less than 75%</strong> (regular tasks require 30-70%). Even though a score below 30% is technically allowed, try to include criteria the client model <em>does</em> meet so the score isn't 0%.
               </div>
             </li>
             <li className="flex items-start gap-2 text-xs text-white/60">
               <span className="text-amber-400 mt-0.5 font-bold">!</span>
               <div>
-                <strong className="text-white/80">Major criteria expanded:</strong> Can now include elements that aren't explicitly asked for but would make the response much more useful or helpful.
+                <strong className="text-white/80">Major criteria expanded:</strong> Can now include elements that <strong className="text-white/80">aren't explicitly asked for</strong> in the prompt but would make the response much more useful or helpful. This is the biggest change.
               </div>
             </li>
             <li className="flex items-start gap-2 text-xs text-white/60">
-              <span className="text-emerald-400 mt-0.5">&#x2713;</span>
+              <span className="text-amber-400 mt-0.5 font-bold">!</span>
               <div>
-                <strong className="text-white/80">Critical & Minor:</strong> Same definitions as regular tasks (unchanged).
+                <strong className="text-white/80">Reflect the preferred response:</strong> The rubric should capture elements from the non-client model's response that improved quality — what made it better.
               </div>
+            </li>
+          </ul>
+        </div>
+
+        <div className="glass-subtle rounded-xl p-4">
+          <p className="text-xs font-semibold text-emerald-400 uppercase tracking-wider mb-3">What Stayed the Same</p>
+          <ul className="space-y-2">
+            <li className="flex items-start gap-2 text-xs text-white/60">
+              <span className="text-emerald-400 mt-0.5">&#x2713;</span>
+              <strong className="text-white/80">Critical & Minor weights:</strong> Same definitions as regular tasks
             </li>
             <li className="flex items-start gap-2 text-xs text-white/60">
               <span className="text-emerald-400 mt-0.5">&#x2713;</span>
-              <div>
-                <strong className="text-white/80">Grade against client model:</strong> All criteria are graded against Model 1's response (the client model being evaluated).
-              </div>
+              <strong className="text-white/80">Grade against the client model:</strong> All criteria are scored against Model 1's response
+            </li>
+            <li className="flex items-start gap-2 text-xs text-white/60">
+              <span className="text-emerald-400 mt-0.5">&#x2713;</span>
+              <strong className="text-white/80">Rubric structure:</strong> Same weight categories (Critical 5pts, Major 3pts, Minor 1pt), same tags (Knowledge, Reasoning, Style, Final Answer), same Objective/Subjective classification
             </li>
           </ul>
         </div>
@@ -230,8 +244,8 @@ const slides: Slide[] = [
     ),
   },
   {
-    title: 'Example Walkthrough: The Prompt & Responses',
-    subtitle: 'Delta SkyMiles — a real LMArena example',
+    title: 'Example: Delta SkyMiles',
+    subtitle: 'Walkthrough — prompt, responses, and preference',
     content: (
       <div className="space-y-4">
         <div className="glass-subtle rounded-xl p-4">
@@ -240,29 +254,27 @@ const slides: Slide[] = [
             "I have 127,073 Delta miles available, is this good, or bad and what could I get for it?"
           </p>
           <p className="text-[11px] text-white/40 mt-2">
-            Notice: this is a natural, consumer-focused question — exactly the style LMArena tasks call for. Simple, conversational, and something a real person would ask.
+            A natural, conversational consumer question — exactly the style LMArena tasks call for.
           </p>
         </div>
 
         <div className="grid grid-cols-2 gap-3">
           <div className="glass-subtle rounded-xl p-4">
-            <p className="text-[10px] font-semibold text-red-400 uppercase tracking-wider mb-2">Model A (Client)</p>
+            <p className="text-[10px] font-semibold text-red-400 uppercase tracking-wider mb-2">Model 1 / A (Client)</p>
             <ul className="space-y-1.5 text-[11px] text-white/50 leading-relaxed">
               <li>Says it "depends on your travel goals"</li>
-              <li>Lists domestic flights (25-30k miles), international (60-80k), Asia (120k+)</li>
-              <li>Covers seat upgrades (10-20k domestic, 30-60k international)</li>
-              <li>Mentions merchandise/gift cards but warns of lower value</li>
-              <li>Never directly answers: <strong className="text-white/70">is 127,073 miles good or bad?</strong></li>
+              <li>Lists flight options, seat upgrades, and merchandise</li>
+              <li>Warns that gift cards offer lower value per mile</li>
+              <li><strong className="text-white/70">Never directly answers: is 127,073 miles good or bad?</strong></li>
             </ul>
           </div>
           <div className="glass-subtle rounded-xl p-4">
-            <p className="text-[10px] font-semibold text-emerald-400 uppercase tracking-wider mb-2">Model B (Preferred)</p>
+            <p className="text-[10px] font-semibold text-emerald-400 uppercase tracking-wider mb-2">Model 2 / B (Preferred)</p>
             <ul className="space-y-1.5 text-[11px] text-white/50 leading-relaxed">
               <li><strong className="text-white/70">Directly answers: "This is very good"</strong></li>
               <li>Puts it in perspective with average ticket costs</li>
-              <li>Explains what you can get: multiple domestic trips, an international economy ticket, or a premium cabin upgrade</li>
-              <li>Concise and clearly organized</li>
-              <li>Addresses the user's actual question first, then provides detail</li>
+              <li>Explains options: domestic trips, international economy, or premium cabin upgrades</li>
+              <li>Addresses the user's question first, then adds detail</li>
             </ul>
           </div>
         </div>
@@ -275,9 +287,9 @@ const slides: Slide[] = [
               <line x1="12" y1="8" x2="12.01" y2="8" />
             </svg>
             <div>
-              <p className="text-xs font-semibold text-blue-300 mb-1">Preference: Model B</p>
+              <p className="text-xs font-semibold text-blue-300 mb-1">Preference: Model 2 (Model B)</p>
               <p className="text-[11px] text-white/50 leading-relaxed">
-                <strong className="text-white/70">Justification:</strong> Response B not only provides information on what can be redeemed for the miles accumulated but also on how to get the best deal. Response B also more clearly answers the direct question before offering the nice-to-have context. Its formatting and order of information are also easier to understand.
+                <strong className="text-white/70">Justification:</strong> Response B not only provides information on what can be redeemed but also on how to get the best deal. It more clearly answers the direct question before offering nice-to-have context. Its formatting and order of information are easier to understand.
               </p>
             </div>
           </div>
@@ -286,12 +298,12 @@ const slides: Slide[] = [
     ),
   },
   {
-    title: 'Example Walkthrough: The Rubric',
-    subtitle: 'Delta SkyMiles — how the rubric criteria differ from traditional tasks',
+    title: 'Example: The Rubric',
+    subtitle: 'Delta SkyMiles — notice how criteria go beyond the prompt',
     content: (
       <div className="space-y-4">
         <p className="text-xs text-white/50 leading-relaxed">
-          Below is the rubric for the Delta SkyMiles example. Notice how criteria include both objective requirements <em>and</em> preference-based elements that weren't explicitly asked for but make the response more helpful. All criteria are graded against <strong className="text-white/70">Model A</strong> (the client model).
+          All 9 criteria are graded against <strong className="text-white/70">Model 1</strong> (the client). Highlighted rows are <strong className="text-amber-300">Major criteria that go beyond what the user asked</strong> — this is what makes LMArena rubrics different.
         </p>
 
         <div className="glass-subtle rounded-xl overflow-hidden">
@@ -303,84 +315,83 @@ const slides: Slide[] = [
             <div className="px-3 py-2 font-semibold text-white/40 uppercase tracking-wider border-b border-white/10 bg-white/5">Type</div>
             <div className="px-3 py-2 font-semibold text-white/40 uppercase tracking-wider border-b border-white/10 bg-white/5">Grade</div>
 
-            {/* Row 1 - Critical */}
+            {/* Row 1 - Critical, Not Met */}
             <div className="px-3 py-2.5 text-white/50 border-b border-white/5">1</div>
-            <div className="px-3 py-2.5 text-white/70 border-b border-white/5">States that accumulating 127,073 Delta SkyMiles miles is good.</div>
+            <div className="px-3 py-2.5 text-white/70 border-b border-white/5">States that 127,073 Delta SkyMiles is good.</div>
             <div className="px-3 py-2.5 border-b border-white/5"><span className="px-1.5 py-0.5 rounded bg-red-500/20 text-red-300 font-semibold">Critical</span></div>
-            <div className="px-3 py-2.5 text-white/50 border-b border-white/5">Objective</div>
+            <div className="px-3 py-2.5 text-white/50 border-b border-white/5">Obj</div>
             <div className="px-3 py-2.5 border-b border-white/5"><span className="text-red-400 font-semibold">Not Met</span></div>
 
-            {/* Row 2 */}
+            {/* Row 2 - Critical, Fully Met */}
             <div className="px-3 py-2.5 text-white/50 border-b border-white/5">2</div>
-            <div className="px-3 py-2.5 text-white/70 border-b border-white/5">States that miles can be redeemed for flights.</div>
+            <div className="px-3 py-2.5 text-white/70 border-b border-white/5">States miles can be redeemed for flights.</div>
             <div className="px-3 py-2.5 border-b border-white/5"><span className="px-1.5 py-0.5 rounded bg-red-500/20 text-red-300 font-semibold">Critical</span></div>
-            <div className="px-3 py-2.5 text-white/50 border-b border-white/5">Objective</div>
-            <div className="px-3 py-2.5 border-b border-white/5"><span className="text-emerald-400 font-semibold">Fully Met</span></div>
+            <div className="px-3 py-2.5 text-white/50 border-b border-white/5">Obj</div>
+            <div className="px-3 py-2.5 border-b border-white/5"><span className="text-emerald-400 font-semibold">Met</span></div>
 
-            {/* Row 3 */}
+            {/* Row 3 - Critical, Fully Met */}
             <div className="px-3 py-2.5 text-white/50 border-b border-white/5">3</div>
-            <div className="px-3 py-2.5 text-white/70 border-b border-white/5">States that miles can be redeemed for upgrades.</div>
+            <div className="px-3 py-2.5 text-white/70 border-b border-white/5">States miles can be redeemed for upgrades.</div>
             <div className="px-3 py-2.5 border-b border-white/5"><span className="px-1.5 py-0.5 rounded bg-red-500/20 text-red-300 font-semibold">Critical</span></div>
-            <div className="px-3 py-2.5 text-white/50 border-b border-white/5">Objective</div>
-            <div className="px-3 py-2.5 border-b border-white/5"><span className="text-emerald-400 font-semibold">Fully Met</span></div>
+            <div className="px-3 py-2.5 text-white/50 border-b border-white/5">Obj</div>
+            <div className="px-3 py-2.5 border-b border-white/5"><span className="text-emerald-400 font-semibold">Met</span></div>
 
-            {/* Row 4 - Major, not asked for */}
+            {/* Row 4 - Major highlight */}
             <div className="px-3 py-2.5 text-white/50 border-b border-white/5 bg-amber-500/5">4</div>
-            <div className="px-3 py-2.5 text-white/70 border-b border-white/5 bg-amber-500/5">States that miles can be redeemed for non-flight options, such as merchandise, hotels, or car rentals.</div>
+            <div className="px-3 py-2.5 text-white/70 border-b border-white/5 bg-amber-500/5">Miles can be redeemed for non-flight options (merchandise, hotels, car rentals).</div>
             <div className="px-3 py-2.5 border-b border-white/5 bg-amber-500/5"><span className="px-1.5 py-0.5 rounded bg-amber-500/20 text-amber-300 font-semibold">Major</span></div>
-            <div className="px-3 py-2.5 text-white/50 border-b border-white/5 bg-amber-500/5">Objective</div>
-            <div className="px-3 py-2.5 border-b border-white/5 bg-amber-500/5"><span className="text-emerald-400 font-semibold">Fully Met</span></div>
+            <div className="px-3 py-2.5 text-white/50 border-b border-white/5 bg-amber-500/5">Obj</div>
+            <div className="px-3 py-2.5 border-b border-white/5 bg-amber-500/5"><span className="text-emerald-400 font-semibold">Met</span></div>
 
-            {/* Row 5 - Major, not asked for */}
+            {/* Row 5 - Major highlight, Not Met */}
             <div className="px-3 py-2.5 text-white/50 border-b border-white/5 bg-amber-500/5">5</div>
-            <div className="px-3 py-2.5 text-white/70 border-b border-white/5 bg-amber-500/5">Provides information on how to get the best value for your miles (off-peak dates, booking early, partner airlines).</div>
+            <div className="px-3 py-2.5 text-white/70 border-b border-white/5 bg-amber-500/5">How to get best value (off-peak dates, booking early, partner airlines).</div>
             <div className="px-3 py-2.5 border-b border-white/5 bg-amber-500/5"><span className="px-1.5 py-0.5 rounded bg-amber-500/20 text-amber-300 font-semibold">Major</span></div>
-            <div className="px-3 py-2.5 text-white/50 border-b border-white/5 bg-amber-500/5">Objective</div>
+            <div className="px-3 py-2.5 text-white/50 border-b border-white/5 bg-amber-500/5">Obj</div>
             <div className="px-3 py-2.5 border-b border-white/5 bg-amber-500/5"><span className="text-red-400 font-semibold">Not Met</span></div>
 
             {/* Row 6 - Minor */}
             <div className="px-3 py-2.5 text-white/50 border-b border-white/5">6</div>
-            <div className="px-3 py-2.5 text-white/70 border-b border-white/5">Presents results in a clear, organized manner, such as a table or bullet points.</div>
+            <div className="px-3 py-2.5 text-white/70 border-b border-white/5">Presents results in clear, organized format (table/bullets).</div>
             <div className="px-3 py-2.5 border-b border-white/5"><span className="px-1.5 py-0.5 rounded bg-white/10 text-white/50 font-semibold">Minor</span></div>
-            <div className="px-3 py-2.5 text-white/50 border-b border-white/5">Subjective</div>
-            <div className="px-3 py-2.5 border-b border-white/5"><span className="text-emerald-400 font-semibold">Fully Met</span></div>
+            <div className="px-3 py-2.5 text-white/50 border-b border-white/5">Subj</div>
+            <div className="px-3 py-2.5 border-b border-white/5"><span className="text-emerald-400 font-semibold">Met</span></div>
 
-            {/* Row 7 */}
+            {/* Row 7 - Major highlight */}
             <div className="px-3 py-2.5 text-white/50 border-b border-white/5 bg-amber-500/5">7</div>
-            <div className="px-3 py-2.5 text-white/70 border-b border-white/5 bg-amber-500/5">Provides estimates for what flights can be redeemed for (domestic, international).</div>
+            <div className="px-3 py-2.5 text-white/70 border-b border-white/5 bg-amber-500/5">Estimates for flight redemptions (domestic, international).</div>
             <div className="px-3 py-2.5 border-b border-white/5 bg-amber-500/5"><span className="px-1.5 py-0.5 rounded bg-amber-500/20 text-amber-300 font-semibold">Major</span></div>
-            <div className="px-3 py-2.5 text-white/50 border-b border-white/5 bg-amber-500/5">Objective</div>
-            <div className="px-3 py-2.5 border-b border-white/5 bg-amber-500/5"><span className="text-emerald-400 font-semibold">Fully Met</span></div>
+            <div className="px-3 py-2.5 text-white/50 border-b border-white/5 bg-amber-500/5">Obj</div>
+            <div className="px-3 py-2.5 border-b border-white/5 bg-amber-500/5"><span className="text-emerald-400 font-semibold">Met</span></div>
 
-            {/* Row 8 */}
+            {/* Row 8 - Major highlight */}
             <div className="px-3 py-2.5 text-white/50 border-b border-white/5 bg-amber-500/5">8</div>
-            <div className="px-3 py-2.5 text-white/70 border-b border-white/5 bg-amber-500/5">Provides estimates for upgrades (first class, business class, premium cabin).</div>
+            <div className="px-3 py-2.5 text-white/70 border-b border-white/5 bg-amber-500/5">Estimates for upgrade redemptions (first class, business, premium).</div>
             <div className="px-3 py-2.5 border-b border-white/5 bg-amber-500/5"><span className="px-1.5 py-0.5 rounded bg-amber-500/20 text-amber-300 font-semibold">Major</span></div>
-            <div className="px-3 py-2.5 text-white/50 border-b border-white/5 bg-amber-500/5">Objective</div>
-            <div className="px-3 py-2.5 border-b border-white/5 bg-amber-500/5"><span className="text-emerald-400 font-semibold">Fully Met</span></div>
+            <div className="px-3 py-2.5 text-white/50 border-b border-white/5 bg-amber-500/5">Obj</div>
+            <div className="px-3 py-2.5 border-b border-white/5 bg-amber-500/5"><span className="text-emerald-400 font-semibold">Met</span></div>
 
-            {/* Row 9 */}
+            {/* Row 9 - Minor */}
             <div className="px-3 py-2.5 text-white/50">9</div>
-            <div className="px-3 py-2.5 text-white/70">Recommends against redeeming miles for non-flight options since these are typically lower value.</div>
+            <div className="px-3 py-2.5 text-white/70">Recommends against non-flight redemptions (lower value).</div>
             <div className="px-3 py-2.5"><span className="px-1.5 py-0.5 rounded bg-white/10 text-white/50 font-semibold">Minor</span></div>
-            <div className="px-3 py-2.5 text-white/50">Objective</div>
-            <div className="px-3 py-2.5"><span className="text-emerald-400 font-semibold">Fully Met</span></div>
+            <div className="px-3 py-2.5 text-white/50">Obj</div>
+            <div className="px-3 py-2.5"><span className="text-emerald-400 font-semibold">Met</span></div>
           </div>
         </div>
 
-        <div className="glass rounded-xl p-4 border-amber-500/20 bg-amber-500/5">
-          <div className="flex items-start gap-3">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#f59e0b" strokeWidth="2" className="mt-0.5 shrink-0">
-              <path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z" />
-              <line x1="12" y1="9" x2="12" y2="13" />
-              <line x1="12" y1="17" x2="12.01" y2="17" />
-            </svg>
-            <div>
-              <p className="text-xs font-semibold text-amber-300 mb-1">Notice the highlighted rows</p>
-              <p className="text-[11px] text-white/50 leading-relaxed">
-                Criteria #4, #5, #7, #8 are <strong className="text-white/70">Major</strong> criteria that go <strong className="text-white/70">beyond what the user explicitly asked</strong> — like recommending best-value strategies or providing specific redemption estimates. In a <em>traditional</em> task, these would not qualify as Major. In LMArena tasks, they capture what makes a response genuinely <em>more helpful</em>, reflecting personal expertise and preference.
-              </p>
-            </div>
+        <div className="grid grid-cols-2 gap-3">
+          <div className="glass rounded-xl p-3 border-amber-500/20 bg-amber-500/5">
+            <p className="text-[10px] font-semibold text-amber-300 uppercase tracking-wider mb-1.5">Key Takeaway</p>
+            <p className="text-[11px] text-white/50 leading-relaxed">
+              Criteria #4-5, #7-8 are <strong className="text-white/70">Major criteria beyond what the user asked</strong> — like best-value strategies and specific redemption estimates. In traditional tasks these wouldn't qualify as Major. In LMArena, they reflect what makes a response genuinely more helpful.
+            </p>
+          </div>
+          <div className="glass rounded-xl p-3 border-accent/20 bg-accent/5">
+            <p className="text-[10px] font-semibold text-accent-light uppercase tracking-wider mb-1.5">Score Breakdown</p>
+            <p className="text-[11px] text-white/50 leading-relaxed">
+              Model 1 scores <strong className="text-white/70">21/29 = 72%</strong> (3 Critical at 5pts, 5 Major at 3pts, 2 Minor at 1pt). This is <strong className="text-white/70">below 75%, so it passes</strong> under LMArena rules — but would <em>fail</em> under the regular 30-70% range since it's above 70%.
+            </p>
           </div>
         </div>
       </div>
@@ -398,12 +409,12 @@ const slides: Slide[] = [
             <span className="text-[10px] font-semibold text-accent-light uppercase tracking-wider">LMArena Tasks</span>
           </div>
           <ComparisonRow label="Model responses" old="Evaluate 1 model" new="Compare 2 models side by side" />
-          <ComparisonRow label="Prompt focus" old="Any domain (per your expertise)" new="Consumer-focused (e.g. home, lifestyle, finance)" />
-          <ComparisonRow label="Prompt style" old="Designed to cause model failure" new="Simple, natural, open-ended" />
+          <ComparisonRow label="Prompt focus" old="Any domain (per expertise)" new="Consumer-focused everyday use cases" />
+          <ComparisonRow label="Prompt style" old="Designed to cause 30-70% failure" new="Simple, natural, open-ended" />
           <ComparisonRow label="Rubric approach" old="Objective grading" new="Preference-based + objective" />
-          <ComparisonRow label="Failure range" old="30-70%" new="Less than 75%" />
-          <ComparisonRow label="Major criteria" old="Explicitly asked elements" new="Can include helpful extras" />
-          <ComparisonRow label="Task type" old="Various" new="All LLM Power User" />
+          <ComparisonRow label="Acceptable score" old="30-70%" new="Less than 75%" />
+          <ComparisonRow label="Major criteria" old="Only explicitly asked elements" new="Can include helpful extras" />
+          <ComparisonRow label="Task type" old="Various domain types" new="All LLM Power User" />
           <ComparisonRow label="Dashboard" old="Unclaimed Tasks" new="LMArena Unclaimed Tasks" />
           <ComparisonRow label="Preference step" old="None" new="Must pick Model 2 or Neither" />
         </div>
@@ -417,7 +428,7 @@ const slides: Slide[] = [
             <div>
               <p className="text-xs font-semibold text-emerald-300 mb-1">What stays the same</p>
               <p className="text-[11px] text-white/50 leading-relaxed">
-                Same Mercor Studio platform, same rubric structure (Critical/Major/Minor), same golden scaffolding process, same review workflow, same project (Snowman).
+                Same Mercor Studio platform, same rubric structure (Critical 5pts / Major 3pts / Minor 1pt), same golden scaffolding process, same review workflow, same project (Snowman).
               </p>
             </div>
           </div>
