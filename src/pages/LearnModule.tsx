@@ -63,19 +63,19 @@ const slides: Slide[] = [
           <p className="text-xs font-semibold text-accent-light uppercase tracking-wider mb-3">Key Facts</p>
           <ul className="space-y-2">
             <li className="flex items-start gap-2 text-xs text-white/60">
-              <span className="text-accent-light mt-0.5">&#x2022;</span>
+              <span className="text-accent-light mt-0.5 shrink-0">&#x2022;</span>
               All LMArena tasks are classified as <strong className="text-white/80">LLM Power User</strong> tasks
             </li>
             <li className="flex items-start gap-2 text-xs text-white/60">
-              <span className="text-accent-light mt-0.5">&#x2022;</span>
+              <span className="text-accent-light mt-0.5 shrink-0">&#x2022;</span>
               Tasks are found in dedicated <strong className="text-white/80">LMArena dashboards</strong>, separate from regular task queues
             </li>
             <li className="flex items-start gap-2 text-xs text-white/60">
-              <span className="text-accent-light mt-0.5">&#x2022;</span>
+              <span className="text-accent-light mt-0.5 shrink-0">&#x2022;</span>
               After claiming, they appear in your regular Writing/Reviewing dashboards
             </li>
             <li className="flex items-start gap-2 text-xs text-white/60">
-              <span className="text-accent-light mt-0.5">&#x2022;</span>
+              <span className="text-accent-light mt-0.5 shrink-0">&#x2022;</span>
               The Studio UI labels models as <strong className="text-white/80">Model 1</strong> and <strong className="text-white/80">Model 2</strong> (examples may also use Model A/B — these are the same thing: Model 1 = Model A = client)
             </li>
           </ul>
@@ -102,7 +102,7 @@ const slides: Slide[] = [
     title: 'The LMArena Workflow',
     subtitle: '5 steps to complete a task',
     content: (
-      <div className="space-y-3">
+      <div className="space-y-5">
         <StepCard
           number={1}
           title="Submit Your Prompt & Compare Responses"
@@ -151,16 +151,16 @@ const slides: Slide[] = [
           <p className="text-xs font-semibold text-accent-light uppercase tracking-wider mb-3">Key Principles</p>
           <ul className="space-y-2">
             <li className="flex items-start gap-2 text-xs text-white/60">
-              <span className="text-emerald-400 mt-0.5">&#x2713;</span>
-              <strong className="text-white/80">Focus on everyday use cases</strong> — mimic real-world situations where someone would turn to an AI. Suggested areas include home & household, lifestyle, and personal finance, but not limited to these.
+              <span className="text-emerald-400 mt-0.5 shrink-0">&#x2713;</span>
+              <span><strong className="text-white/80">Focus on everyday use cases</strong> — mimic real-world situations where someone would turn to an AI. Suggested areas include home & household, lifestyle, and personal finance, but not limited to these.</span>
             </li>
             <li className="flex items-start gap-2 text-xs text-white/60">
-              <span className="text-emerald-400 mt-0.5">&#x2713;</span>
-              <strong className="text-white/80">Keep them simple and open-ended</strong> — avoid overly rigid constraints, artificial formatting requirements, or excessive instructions
+              <span className="text-emerald-400 mt-0.5 shrink-0">&#x2713;</span>
+              <span><strong className="text-white/80">Keep them simple and open-ended</strong> — avoid overly rigid constraints, artificial formatting requirements, or excessive instructions</span>
             </li>
             <li className="flex items-start gap-2 text-xs text-white/60">
-              <span className="text-emerald-400 mt-0.5">&#x2713;</span>
-              <strong className="text-white/80">Use natural phrasing</strong> — should sound like something a person would actually type into ChatGPT or another AI assistant
+              <span className="text-emerald-400 mt-0.5 shrink-0">&#x2713;</span>
+              <span><strong className="text-white/80">Use natural phrasing</strong> — should sound like something a person would actually type into ChatGPT or another AI assistant</span>
             </li>
           </ul>
         </div>
@@ -227,16 +227,16 @@ const slides: Slide[] = [
           <p className="text-xs font-semibold text-emerald-400 uppercase tracking-wider mb-3">What Stayed the Same</p>
           <ul className="space-y-2">
             <li className="flex items-start gap-2 text-xs text-white/60">
-              <span className="text-emerald-400 mt-0.5">&#x2713;</span>
-              <strong className="text-white/80">Critical & Minor weights:</strong> Same definitions as regular tasks
+              <span className="text-emerald-400 mt-0.5 shrink-0">&#x2713;</span>
+              <span><strong className="text-white/80">Critical & Minor weights:</strong> Same definitions as regular tasks</span>
             </li>
             <li className="flex items-start gap-2 text-xs text-white/60">
-              <span className="text-emerald-400 mt-0.5">&#x2713;</span>
-              <strong className="text-white/80">Grade against the client model:</strong> All criteria are scored against Model 1's response
+              <span className="text-emerald-400 mt-0.5 shrink-0">&#x2713;</span>
+              <span><strong className="text-white/80">Grade against the client model:</strong> All criteria are scored against Model 1's response</span>
             </li>
             <li className="flex items-start gap-2 text-xs text-white/60">
-              <span className="text-emerald-400 mt-0.5">&#x2713;</span>
-              <strong className="text-white/80">Rubric structure:</strong> Same weight categories (Critical 5pts, Major 3pts, Minor 1pt), same tags (Knowledge, Reasoning, Style, Final Answer), same Objective/Subjective classification
+              <span className="text-emerald-400 mt-0.5 shrink-0">&#x2713;</span>
+              <span><strong className="text-white/80">Rubric structure:</strong> Same weight categories (Critical 5pts, Major 3pts, Minor 1pt), same tags (Knowledge, Reasoning, Style, Final Answer), same Objective/Subjective classification</span>
             </li>
           </ul>
         </div>
@@ -306,8 +306,8 @@ const slides: Slide[] = [
           All 9 criteria are graded against <strong className="text-white/70">Model 1</strong> (the client). Highlighted rows are <strong className="text-amber-300">Major criteria that go beyond what the user asked</strong> — this is what makes LMArena rubrics different.
         </p>
 
-        <div className="glass-subtle rounded-xl overflow-hidden">
-          <div className="grid grid-cols-[auto_1fr_auto_auto_auto] gap-x-3 gap-y-0 text-[10px]">
+        <div className="glass-subtle rounded-xl overflow-x-auto">
+          <div className="grid grid-cols-[2rem_1fr_4.5rem_3rem_4.5rem] gap-x-2 gap-y-0 text-[10px] min-w-[500px]">
             {/* Header */}
             <div className="px-3 py-2 font-semibold text-white/40 uppercase tracking-wider border-b border-white/10 bg-white/5">#</div>
             <div className="px-3 py-2 font-semibold text-white/40 uppercase tracking-wider border-b border-white/10 bg-white/5">Description</div>
