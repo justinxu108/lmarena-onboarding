@@ -23,14 +23,25 @@ function ComparisonRow({ label, old, new: newVal }: { label: string; old: string
   );
 }
 
+function Bullet({ color = 'accent', children }: { color?: 'accent' | 'green' | 'amber'; children: React.ReactNode }) {
+  const dotColor = color === 'green' ? 'text-emerald-400' : color === 'amber' ? 'text-amber-400' : 'text-accent-light';
+  const dot = color === 'green' ? '\u2713' : color === 'amber' ? '!' : '\u2022';
+  return (
+    <li className="flex items-start gap-2.5 text-xs text-white/60 leading-relaxed">
+      <span className={`${dotColor} mt-px shrink-0 ${color === 'amber' ? 'font-bold' : ''}`}>{dot}</span>
+      <span className="min-w-0">{children}</span>
+    </li>
+  );
+}
+
 function StepCard({ number, title, description, image }: { number: number; title: string; description: string; image?: string }) {
   return (
-    <div className="space-y-2">
+    <div className="space-y-2.5">
       <div className="flex gap-3 items-start">
         <span className="flex items-center justify-center w-8 h-8 rounded-xl bg-accent/20 text-accent-light text-sm font-bold shrink-0">
           {number}
         </span>
-        <div>
+        <div className="min-w-0">
           <p className="text-sm font-semibold text-white/90 mb-0.5">{title}</p>
           <p className="text-xs text-white/50 leading-relaxed">{description}</p>
         </div>
@@ -44,40 +55,33 @@ function StepCard({ number, title, description, image }: { number: number; title
   );
 }
 
+function B({ children }: { children: React.ReactNode }) {
+  return <strong className="text-white/80 font-semibold">{children}</strong>;
+}
+
 const slides: Slide[] = [
+  // ─── Slide 1: What are LMArena Tasks? ───
   {
     title: 'What are LMArena Tasks?',
     subtitle: 'A new type of task in Project Snowman',
     content: (
-      <div className="space-y-4">
-        <div className="glass-subtle rounded-xl p-4">
-          <p className="text-sm text-white/70 leading-relaxed mb-3">
-            LMArena tasks are a new task type where you <strong className="text-white/90">compare two AI model responses</strong> side by side and evaluate which one is better. This is fundamentally different from regular tasks where you evaluate a single model's output.
+      <div className="space-y-5">
+        <div className="glass-subtle rounded-xl p-4 space-y-3">
+          <p className="text-sm text-white/70 leading-relaxed">
+            LMArena tasks are a new task type where you <B>compare two AI model responses</B> side by side and evaluate which one is better. This is fundamentally different from regular tasks where you evaluate a single model's output.
           </p>
           <p className="text-sm text-white/70 leading-relaxed">
-            The goal is to <strong className="text-white/90">evaluate the client model (Model 1)</strong> by comparing it against a competing model (Model 2), building a rubric that captures where Model 1 falls short.
+            The goal is to <B>evaluate the client model (Model 1)</B> by comparing it against a competing model (Model 2), building a rubric that captures where Model 1 falls short.
           </p>
         </div>
 
         <div className="glass-subtle rounded-xl p-4">
-          <p className="text-xs font-semibold text-accent-light uppercase tracking-wider mb-3">Key Facts</p>
-          <ul className="space-y-2">
-            <li className="flex items-start gap-2 text-xs text-white/60">
-              <span className="text-accent-light mt-0.5 shrink-0">&#x2022;</span>
-              All LMArena tasks are classified as <strong className="text-white/80">LLM Power User</strong> tasks
-            </li>
-            <li className="flex items-start gap-2 text-xs text-white/60">
-              <span className="text-accent-light mt-0.5 shrink-0">&#x2022;</span>
-              Tasks are found in dedicated <strong className="text-white/80">LMArena dashboards</strong>, separate from regular task queues
-            </li>
-            <li className="flex items-start gap-2 text-xs text-white/60">
-              <span className="text-accent-light mt-0.5 shrink-0">&#x2022;</span>
-              After claiming, they appear in your regular Writing/Reviewing dashboards
-            </li>
-            <li className="flex items-start gap-2 text-xs text-white/60">
-              <span className="text-accent-light mt-0.5 shrink-0">&#x2022;</span>
-              The Studio UI labels models as <strong className="text-white/80">Model 1</strong> and <strong className="text-white/80">Model 2</strong> (examples may also use Model A/B — these are the same thing: Model 1 = Model A = client)
-            </li>
+          <p className="text-[11px] font-semibold text-accent-light uppercase tracking-wider mb-3">Key Facts</p>
+          <ul className="space-y-2.5">
+            <Bullet>All LMArena tasks are classified as <B>LLM Power User</B> tasks</Bullet>
+            <Bullet>Tasks are found in dedicated <B>LMArena dashboards</B>, separate from regular task queues</Bullet>
+            <Bullet>After claiming, they appear in your regular Writing/Reviewing dashboards</Bullet>
+            <Bullet>The Studio UI labels models as <B>Model 1</B> and <B>Model 2</B> (examples may also say Model A/B — same thing: Model 1 = Model A = client)</Bullet>
           </ul>
         </div>
 
@@ -98,6 +102,8 @@ const slides: Slide[] = [
       </div>
     ),
   },
+
+  // ─── Slide 2: The LMArena Workflow ───
   {
     title: 'The LMArena Workflow',
     subtitle: '5 steps to complete a task',
@@ -112,7 +118,7 @@ const slides: Slide[] = [
         <StepCard
           number={2}
           title="Record Your Preference"
-          description="In the Annotation tab, select your preferred model and confidence level. Write a 20-100 word justification explaining why. You can only proceed if you select Model 2 or Neither — if Model 1 is better, you cannot continue with that task."
+          description="Select your preferred model and confidence level. Write a 20-100 word justification. You can only proceed if you select Model 2 or Neither — if Model 1 is better, you cannot continue with that task."
           image="/images/model-preference.png"
         />
         <StepCard
@@ -130,45 +136,36 @@ const slides: Slide[] = [
         <StepCard
           number={5}
           title="Submit the Task"
-          description="Ensure all submission requirements are met: preference is Model 2 or Neither, justification is 20-100 words, at least 3 criteria with at least 1 Critical and 1 Major, rubric score is within the acceptable range, and autograder has been run."
+          description="Ensure all submission requirements are met: preference is Model 2 or Neither, justification is 20-100 words, at least 3 criteria with at least 1 Critical and 1 Major, rubric score is within acceptable range, and autograder has been run."
           image="/images/submission-requirements.png"
         />
       </div>
     ),
   },
+
+  // ─── Slide 3: Prompt Guidelines ───
   {
     title: 'Prompt Guidelines',
     subtitle: 'What makes a good LMArena prompt',
     content: (
-      <div className="space-y-4">
-        <div className="glass-subtle rounded-xl p-4">
-          <p className="text-sm text-white/70 leading-relaxed">
-            LMArena prompts should reflect <strong className="text-white/90">realistic consumer requests</strong> — the kind of thing an average person would naturally ask an AI assistant for help with. The simpler the better: some of the best prompts are 3-5 sentences long, under 100 words, with fewer than 5 constraints.
-          </p>
-        </div>
+      <div className="space-y-5">
+        <p className="text-sm text-white/70 leading-relaxed">
+          LMArena prompts should reflect <B>realistic consumer requests</B> — the kind of thing an average person would naturally ask an AI assistant. The simpler the better: the best prompts are 3-5 sentences, under 100 words, with fewer than 5 constraints.
+        </p>
 
         <div className="glass-subtle rounded-xl p-4">
-          <p className="text-xs font-semibold text-accent-light uppercase tracking-wider mb-3">Key Principles</p>
-          <ul className="space-y-2">
-            <li className="flex items-start gap-2 text-xs text-white/60">
-              <span className="text-emerald-400 mt-0.5 shrink-0">&#x2713;</span>
-              <span><strong className="text-white/80">Focus on everyday use cases</strong> — mimic real-world situations where someone would turn to an AI. Suggested areas include home & household, lifestyle, and personal finance, but not limited to these.</span>
-            </li>
-            <li className="flex items-start gap-2 text-xs text-white/60">
-              <span className="text-emerald-400 mt-0.5 shrink-0">&#x2713;</span>
-              <span><strong className="text-white/80">Keep them simple and open-ended</strong> — avoid overly rigid constraints, artificial formatting requirements, or excessive instructions</span>
-            </li>
-            <li className="flex items-start gap-2 text-xs text-white/60">
-              <span className="text-emerald-400 mt-0.5 shrink-0">&#x2713;</span>
-              <span><strong className="text-white/80">Use natural phrasing</strong> — should sound like something a person would actually type into ChatGPT or another AI assistant</span>
-            </li>
+          <p className="text-[11px] font-semibold text-accent-light uppercase tracking-wider mb-3">Key Principles</p>
+          <ul className="space-y-2.5">
+            <Bullet color="green"><B>Focus on everyday use cases</B> — mimic real-world situations where someone would turn to an AI. Suggested areas include home &amp; household, lifestyle, and personal finance, but not limited to these.</Bullet>
+            <Bullet color="green"><B>Keep them simple and open-ended</B> — avoid overly rigid constraints, artificial formatting requirements, or excessive instructions</Bullet>
+            <Bullet color="green"><B>Use natural phrasing</B> — should sound like something a person would actually type into ChatGPT or another AI assistant</Bullet>
           </ul>
         </div>
 
         <div className="grid grid-cols-2 gap-3">
           <div className="glass-subtle rounded-xl p-3">
             <p className="text-[10px] font-semibold text-emerald-400 uppercase tracking-wider mb-2">Good Examples</p>
-            <ul className="space-y-1.5 text-[11px] text-white/60">
+            <ul className="space-y-1.5 text-[11px] text-white/60 leading-relaxed">
               <li>"Is it worth buying noise-cancelling headphones for studying?"</li>
               <li>"What's the difference between ceramic and stainless steel cookware?"</li>
               <li>"How do I choose a good mattress?"</li>
@@ -177,7 +174,7 @@ const slides: Slide[] = [
           </div>
           <div className="glass-subtle rounded-xl p-3">
             <p className="text-[10px] font-semibold text-red-400 uppercase tracking-wider mb-2">Avoid</p>
-            <ul className="space-y-1.5 text-[11px] text-white/60">
+            <ul className="space-y-1.5 text-[11px] text-white/60 leading-relaxed">
               <li>Overly technical or domain-specific prompts</li>
               <li>Rigid formatting requirements or excessive constraints</li>
               <li>Prompts requiring specialized professional knowledge</li>
@@ -188,61 +185,39 @@ const slides: Slide[] = [
       </div>
     ),
   },
+
+  // ─── Slide 4: Rubric Changes ───
   {
     title: 'Rubric Changes',
     subtitle: 'How LMArena rubrics differ from regular rubrics',
     content: (
-      <div className="space-y-4">
-        <div className="glass-subtle rounded-xl p-4">
-          <p className="text-sm text-white/70 leading-relaxed">
-            LMArena rubrics are <strong className="text-white/90">more preference-based</strong> than regular rubrics. The guiding principle is that rubrics can capture <strong className="text-white/90">personal perspectives and expertise</strong>, reflecting what makes a response genuinely <em>helpful</em> — not just checking for correct reasoning.
-          </p>
-        </div>
+      <div className="space-y-5">
+        <p className="text-sm text-white/70 leading-relaxed">
+          LMArena rubrics are <B>more preference-based</B> than regular rubrics. The guiding principle is that rubrics can capture <B>personal perspectives and expertise</B>, reflecting what makes a response genuinely helpful — not just checking for correct reasoning.
+        </p>
 
         <div className="glass-subtle rounded-xl p-4">
-          <p className="text-xs font-semibold text-accent-light uppercase tracking-wider mb-3">What Changed</p>
+          <p className="text-[11px] font-semibold text-accent-light uppercase tracking-wider mb-3">What Changed</p>
           <ul className="space-y-3">
-            <li className="flex items-start gap-2 text-xs text-white/60">
-              <span className="text-amber-400 mt-0.5 font-bold">!</span>
-              <div>
-                <strong className="text-white/80">Rubric score range:</strong> The acceptable score is now anything <strong className="text-white/80">less than 75%</strong> (regular tasks require 30-70%). Even though a score below 30% is technically allowed, try to include criteria the client model <em>does</em> meet so the score isn't 0%.
-              </div>
-            </li>
-            <li className="flex items-start gap-2 text-xs text-white/60">
-              <span className="text-amber-400 mt-0.5 font-bold">!</span>
-              <div>
-                <strong className="text-white/80">Major criteria expanded:</strong> Can now include elements that <strong className="text-white/80">aren't explicitly asked for</strong> in the prompt but would make the response much more useful or helpful. This is the biggest change.
-              </div>
-            </li>
-            <li className="flex items-start gap-2 text-xs text-white/60">
-              <span className="text-amber-400 mt-0.5 font-bold">!</span>
-              <div>
-                <strong className="text-white/80">Reflect the preferred response:</strong> The rubric should capture elements from the non-client model's response that improved quality — what made it better.
-              </div>
-            </li>
+            <Bullet color="amber"><B>Rubric score range:</B> The acceptable score is now anything less than 75% (regular tasks require 30-70%). Even if below 30%, try to include criteria the client model does meet so the score isn't 0%.</Bullet>
+            <Bullet color="amber"><B>Major criteria expanded:</B> Can now include elements that aren't explicitly asked for in the prompt but would make the response much more useful or helpful. This is the biggest change.</Bullet>
+            <Bullet color="amber"><B>Reflect the preferred response:</B> The rubric should capture elements from the non-client model's response that improved quality — what made it better.</Bullet>
           </ul>
         </div>
 
         <div className="glass-subtle rounded-xl p-4">
-          <p className="text-xs font-semibold text-emerald-400 uppercase tracking-wider mb-3">What Stayed the Same</p>
-          <ul className="space-y-2">
-            <li className="flex items-start gap-2 text-xs text-white/60">
-              <span className="text-emerald-400 mt-0.5 shrink-0">&#x2713;</span>
-              <span><strong className="text-white/80">Critical & Minor weights:</strong> Same definitions as regular tasks</span>
-            </li>
-            <li className="flex items-start gap-2 text-xs text-white/60">
-              <span className="text-emerald-400 mt-0.5 shrink-0">&#x2713;</span>
-              <span><strong className="text-white/80">Grade against the client model:</strong> All criteria are scored against Model 1's response</span>
-            </li>
-            <li className="flex items-start gap-2 text-xs text-white/60">
-              <span className="text-emerald-400 mt-0.5 shrink-0">&#x2713;</span>
-              <span><strong className="text-white/80">Rubric structure:</strong> Same weight categories (Critical 5pts, Major 3pts, Minor 1pt), same tags (Knowledge, Reasoning, Style, Final Answer), same Objective/Subjective classification</span>
-            </li>
+          <p className="text-[11px] font-semibold text-emerald-400 uppercase tracking-wider mb-3">What Stayed the Same</p>
+          <ul className="space-y-2.5">
+            <Bullet color="green"><B>Critical &amp; Minor weights:</B> Same definitions as regular tasks</Bullet>
+            <Bullet color="green"><B>Grade against the client model:</B> All criteria are scored against Model 1's response</Bullet>
+            <Bullet color="green"><B>Rubric structure:</B> Same weight categories (Critical 5pts, Major 3pts, Minor 1pt), same tags, same Objective/Subjective classification</Bullet>
           </ul>
         </div>
       </div>
     ),
   },
+
+  // ─── Slide 5: Example — Prompt & Responses ───
   {
     title: 'Example: Delta SkyMiles',
     subtitle: 'Walkthrough — prompt, responses, and preference',
@@ -261,142 +236,102 @@ const slides: Slide[] = [
         <div className="grid grid-cols-2 gap-3">
           <div className="glass-subtle rounded-xl p-4">
             <p className="text-[10px] font-semibold text-red-400 uppercase tracking-wider mb-2">Model 1 / A (Client)</p>
-            <ul className="space-y-1.5 text-[11px] text-white/50 leading-relaxed">
+            <ul className="space-y-1.5 text-[11px] text-white/50 leading-relaxed list-disc list-inside">
               <li>Says it "depends on your travel goals"</li>
-              <li>Lists flight options, seat upgrades, and merchandise</li>
-              <li>Warns that gift cards offer lower value per mile</li>
-              <li><strong className="text-white/70">Never directly answers: is 127,073 miles good or bad?</strong></li>
+              <li>Lists flight options, seat upgrades, merchandise</li>
+              <li>Warns gift cards offer lower value per mile</li>
+              <li className="text-white/70 font-medium">Never directly answers: is 127,073 miles good or bad?</li>
             </ul>
           </div>
           <div className="glass-subtle rounded-xl p-4">
             <p className="text-[10px] font-semibold text-emerald-400 uppercase tracking-wider mb-2">Model 2 / B (Preferred)</p>
-            <ul className="space-y-1.5 text-[11px] text-white/50 leading-relaxed">
-              <li><strong className="text-white/70">Directly answers: "This is very good"</strong></li>
+            <ul className="space-y-1.5 text-[11px] text-white/50 leading-relaxed list-disc list-inside">
+              <li className="text-white/70 font-medium">Directly answers: "This is very good"</li>
               <li>Puts it in perspective with average ticket costs</li>
-              <li>Explains options: domestic trips, international economy, or premium cabin upgrades</li>
+              <li>Explains options: domestic trips, international, premium upgrades</li>
               <li>Addresses the user's question first, then adds detail</li>
             </ul>
           </div>
         </div>
 
         <div className="glass rounded-xl p-4 border-blue-500/20 bg-blue-500/5">
-          <div className="flex items-start gap-3">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#60a5fa" strokeWidth="2" className="mt-0.5 shrink-0">
-              <circle cx="12" cy="12" r="10" />
-              <line x1="12" y1="16" x2="12" y2="12" />
-              <line x1="12" y1="8" x2="12.01" y2="8" />
-            </svg>
-            <div>
-              <p className="text-xs font-semibold text-blue-300 mb-1">Preference: Model 2 (Model B)</p>
-              <p className="text-[11px] text-white/50 leading-relaxed">
-                <strong className="text-white/70">Justification:</strong> Response B not only provides information on what can be redeemed but also on how to get the best deal. It more clearly answers the direct question before offering nice-to-have context. Its formatting and order of information are easier to understand.
-              </p>
-            </div>
-          </div>
+          <p className="text-xs font-semibold text-blue-300 mb-1">Preference: Model 2 (Model B)</p>
+          <p className="text-[11px] text-white/50 leading-relaxed">
+            <span className="text-white/70 font-medium">Justification:</span> Response B not only provides information on what can be redeemed but also on how to get the best deal. It more clearly answers the direct question before offering nice-to-have context. Its formatting and order of information are easier to understand.
+          </p>
         </div>
       </div>
     ),
   },
+
+  // ─── Slide 6: Example — The Rubric ───
   {
     title: 'Example: The Rubric',
     subtitle: 'Delta SkyMiles — notice how criteria go beyond the prompt',
     content: (
       <div className="space-y-4">
         <p className="text-xs text-white/50 leading-relaxed">
-          All 9 criteria are graded against <strong className="text-white/70">Model 1</strong> (the client). Highlighted rows are <strong className="text-amber-300">Major criteria that go beyond what the user asked</strong> — this is what makes LMArena rubrics different.
+          All 9 criteria graded against <span className="text-white/70 font-medium">Model 1</span> (the client). <span className="text-amber-300">Highlighted rows</span> are Major criteria that go beyond what the user asked.
         </p>
 
+        {/* Rubric table */}
         <div className="glass-subtle rounded-xl overflow-x-auto">
-          <div className="grid grid-cols-[2rem_1fr_4.5rem_3rem_4.5rem] gap-x-2 gap-y-0 text-[10px] min-w-[500px]">
-            {/* Header */}
-            <div className="px-3 py-2 font-semibold text-white/40 uppercase tracking-wider border-b border-white/10 bg-white/5">#</div>
-            <div className="px-3 py-2 font-semibold text-white/40 uppercase tracking-wider border-b border-white/10 bg-white/5">Description</div>
-            <div className="px-3 py-2 font-semibold text-white/40 uppercase tracking-wider border-b border-white/10 bg-white/5">Weight</div>
-            <div className="px-3 py-2 font-semibold text-white/40 uppercase tracking-wider border-b border-white/10 bg-white/5">Type</div>
-            <div className="px-3 py-2 font-semibold text-white/40 uppercase tracking-wider border-b border-white/10 bg-white/5">Grade</div>
-
-            {/* Row 1 - Critical, Not Met */}
-            <div className="px-3 py-2.5 text-white/50 border-b border-white/5">1</div>
-            <div className="px-3 py-2.5 text-white/70 border-b border-white/5">States that 127,073 Delta SkyMiles is good.</div>
-            <div className="px-3 py-2.5 border-b border-white/5"><span className="px-1.5 py-0.5 rounded bg-red-500/20 text-red-300 font-semibold">Critical</span></div>
-            <div className="px-3 py-2.5 text-white/50 border-b border-white/5">Obj</div>
-            <div className="px-3 py-2.5 border-b border-white/5"><span className="text-red-400 font-semibold">Not Met</span></div>
-
-            {/* Row 2 - Critical, Fully Met */}
-            <div className="px-3 py-2.5 text-white/50 border-b border-white/5">2</div>
-            <div className="px-3 py-2.5 text-white/70 border-b border-white/5">States miles can be redeemed for flights.</div>
-            <div className="px-3 py-2.5 border-b border-white/5"><span className="px-1.5 py-0.5 rounded bg-red-500/20 text-red-300 font-semibold">Critical</span></div>
-            <div className="px-3 py-2.5 text-white/50 border-b border-white/5">Obj</div>
-            <div className="px-3 py-2.5 border-b border-white/5"><span className="text-emerald-400 font-semibold">Met</span></div>
-
-            {/* Row 3 - Critical, Fully Met */}
-            <div className="px-3 py-2.5 text-white/50 border-b border-white/5">3</div>
-            <div className="px-3 py-2.5 text-white/70 border-b border-white/5">States miles can be redeemed for upgrades.</div>
-            <div className="px-3 py-2.5 border-b border-white/5"><span className="px-1.5 py-0.5 rounded bg-red-500/20 text-red-300 font-semibold">Critical</span></div>
-            <div className="px-3 py-2.5 text-white/50 border-b border-white/5">Obj</div>
-            <div className="px-3 py-2.5 border-b border-white/5"><span className="text-emerald-400 font-semibold">Met</span></div>
-
-            {/* Row 4 - Major highlight */}
-            <div className="px-3 py-2.5 text-white/50 border-b border-white/5 bg-amber-500/5">4</div>
-            <div className="px-3 py-2.5 text-white/70 border-b border-white/5 bg-amber-500/5">Miles can be redeemed for non-flight options (merchandise, hotels, car rentals).</div>
-            <div className="px-3 py-2.5 border-b border-white/5 bg-amber-500/5"><span className="px-1.5 py-0.5 rounded bg-amber-500/20 text-amber-300 font-semibold">Major</span></div>
-            <div className="px-3 py-2.5 text-white/50 border-b border-white/5 bg-amber-500/5">Obj</div>
-            <div className="px-3 py-2.5 border-b border-white/5 bg-amber-500/5"><span className="text-emerald-400 font-semibold">Met</span></div>
-
-            {/* Row 5 - Major highlight, Not Met */}
-            <div className="px-3 py-2.5 text-white/50 border-b border-white/5 bg-amber-500/5">5</div>
-            <div className="px-3 py-2.5 text-white/70 border-b border-white/5 bg-amber-500/5">How to get best value (off-peak dates, booking early, partner airlines).</div>
-            <div className="px-3 py-2.5 border-b border-white/5 bg-amber-500/5"><span className="px-1.5 py-0.5 rounded bg-amber-500/20 text-amber-300 font-semibold">Major</span></div>
-            <div className="px-3 py-2.5 text-white/50 border-b border-white/5 bg-amber-500/5">Obj</div>
-            <div className="px-3 py-2.5 border-b border-white/5 bg-amber-500/5"><span className="text-red-400 font-semibold">Not Met</span></div>
-
-            {/* Row 6 - Minor */}
-            <div className="px-3 py-2.5 text-white/50 border-b border-white/5">6</div>
-            <div className="px-3 py-2.5 text-white/70 border-b border-white/5">Presents results in clear, organized format (table/bullets).</div>
-            <div className="px-3 py-2.5 border-b border-white/5"><span className="px-1.5 py-0.5 rounded bg-white/10 text-white/50 font-semibold">Minor</span></div>
-            <div className="px-3 py-2.5 text-white/50 border-b border-white/5">Subj</div>
-            <div className="px-3 py-2.5 border-b border-white/5"><span className="text-emerald-400 font-semibold">Met</span></div>
-
-            {/* Row 7 - Major highlight */}
-            <div className="px-3 py-2.5 text-white/50 border-b border-white/5 bg-amber-500/5">7</div>
-            <div className="px-3 py-2.5 text-white/70 border-b border-white/5 bg-amber-500/5">Estimates for flight redemptions (domestic, international).</div>
-            <div className="px-3 py-2.5 border-b border-white/5 bg-amber-500/5"><span className="px-1.5 py-0.5 rounded bg-amber-500/20 text-amber-300 font-semibold">Major</span></div>
-            <div className="px-3 py-2.5 text-white/50 border-b border-white/5 bg-amber-500/5">Obj</div>
-            <div className="px-3 py-2.5 border-b border-white/5 bg-amber-500/5"><span className="text-emerald-400 font-semibold">Met</span></div>
-
-            {/* Row 8 - Major highlight */}
-            <div className="px-3 py-2.5 text-white/50 border-b border-white/5 bg-amber-500/5">8</div>
-            <div className="px-3 py-2.5 text-white/70 border-b border-white/5 bg-amber-500/5">Estimates for upgrade redemptions (first class, business, premium).</div>
-            <div className="px-3 py-2.5 border-b border-white/5 bg-amber-500/5"><span className="px-1.5 py-0.5 rounded bg-amber-500/20 text-amber-300 font-semibold">Major</span></div>
-            <div className="px-3 py-2.5 text-white/50 border-b border-white/5 bg-amber-500/5">Obj</div>
-            <div className="px-3 py-2.5 border-b border-white/5 bg-amber-500/5"><span className="text-emerald-400 font-semibold">Met</span></div>
-
-            {/* Row 9 - Minor */}
-            <div className="px-3 py-2.5 text-white/50">9</div>
-            <div className="px-3 py-2.5 text-white/70">Recommends against non-flight redemptions (lower value).</div>
-            <div className="px-3 py-2.5"><span className="px-1.5 py-0.5 rounded bg-white/10 text-white/50 font-semibold">Minor</span></div>
-            <div className="px-3 py-2.5 text-white/50">Obj</div>
-            <div className="px-3 py-2.5"><span className="text-emerald-400 font-semibold">Met</span></div>
-          </div>
+          <table className="w-full text-[10px] border-collapse">
+            <thead>
+              <tr className="border-b border-white/10 bg-white/5">
+                <th className="px-2.5 py-2 text-left font-semibold text-white/40 uppercase tracking-wider w-8">#</th>
+                <th className="px-2.5 py-2 text-left font-semibold text-white/40 uppercase tracking-wider">Description</th>
+                <th className="px-2.5 py-2 text-left font-semibold text-white/40 uppercase tracking-wider w-16">Weight</th>
+                <th className="px-2.5 py-2 text-left font-semibold text-white/40 uppercase tracking-wider w-16">Grade</th>
+              </tr>
+            </thead>
+            <tbody>
+              {([
+                { n: 1, desc: 'States that 127,073 Delta SkyMiles is good.', w: 'Critical', g: 'Not Met', hl: false },
+                { n: 2, desc: 'States miles can be redeemed for flights.', w: 'Critical', g: 'Met', hl: false },
+                { n: 3, desc: 'States miles can be redeemed for upgrades.', w: 'Critical', g: 'Met', hl: false },
+                { n: 4, desc: 'Miles redeemable for non-flight options (merchandise, hotels, car rentals).', w: 'Major', g: 'Met', hl: true },
+                { n: 5, desc: 'How to get best value (off-peak dates, booking early, partner airlines).', w: 'Major', g: 'Not Met', hl: true },
+                { n: 6, desc: 'Presents results in clear, organized format.', w: 'Minor', g: 'Met', hl: false },
+                { n: 7, desc: 'Estimates for flight redemptions (domestic, international).', w: 'Major', g: 'Met', hl: true },
+                { n: 8, desc: 'Estimates for upgrade redemptions (first class, business, premium).', w: 'Major', g: 'Met', hl: true },
+                { n: 9, desc: 'Recommends against non-flight redemptions (lower value).', w: 'Minor', g: 'Met', hl: false },
+              ] as const).map((row) => {
+                const bgClass = row.hl ? 'bg-amber-500/5' : '';
+                const wColor = row.w === 'Critical' ? 'bg-red-500/20 text-red-300' : row.w === 'Major' ? 'bg-amber-500/20 text-amber-300' : 'bg-white/10 text-white/50';
+                const gColor = row.g === 'Not Met' ? 'text-red-400' : 'text-emerald-400';
+                return (
+                  <tr key={row.n} className={`border-b border-white/5 ${bgClass}`}>
+                    <td className="px-2.5 py-2 text-white/50">{row.n}</td>
+                    <td className="px-2.5 py-2 text-white/70">{row.desc}</td>
+                    <td className="px-2.5 py-2"><span className={`px-1.5 py-0.5 rounded text-[9px] font-semibold ${wColor}`}>{row.w}</span></td>
+                    <td className={`px-2.5 py-2 font-semibold ${gColor}`}>{row.g}</td>
+                  </tr>
+                );
+              })}
+            </tbody>
+          </table>
         </div>
 
         <div className="grid grid-cols-2 gap-3">
           <div className="glass rounded-xl p-3 border-amber-500/20 bg-amber-500/5">
             <p className="text-[10px] font-semibold text-amber-300 uppercase tracking-wider mb-1.5">Key Takeaway</p>
             <p className="text-[11px] text-white/50 leading-relaxed">
-              Criteria #4-5, #7-8 are <strong className="text-white/70">Major criteria beyond what the user asked</strong> — like best-value strategies and specific redemption estimates. In traditional tasks these wouldn't qualify as Major. In LMArena, they reflect what makes a response genuinely more helpful.
+              Criteria #4-5, #7-8 are Major criteria <span className="text-white/70 font-medium">beyond what the user asked</span> — like best-value strategies and redemption estimates. In traditional tasks these wouldn't qualify as Major.
             </p>
           </div>
           <div className="glass rounded-xl p-3 border-accent/20 bg-accent/5">
             <p className="text-[10px] font-semibold text-accent-light uppercase tracking-wider mb-1.5">Score Breakdown</p>
             <p className="text-[11px] text-white/50 leading-relaxed">
-              Model 1 scores <strong className="text-white/70">21/29 = 72%</strong> (3 Critical at 5pts, 5 Major at 3pts, 2 Minor at 1pt). This is <strong className="text-white/70">below 75%, so it passes</strong> under LMArena rules — but would <em>fail</em> under the regular 30-70% range since it's above 70%.
+              Model 1 scores <span className="text-white/70 font-medium">21/29 = 72%</span>. This is <span className="text-white/70 font-medium">below 75%</span>, so it passes LMArena — but would fail regular tasks (above 70%).
             </p>
           </div>
         </div>
       </div>
     ),
   },
+
+  // ─── Slide 7: Key Differences Summary ───
   {
     title: 'Key Differences Summary',
     subtitle: 'Regular tasks vs. LMArena tasks at a glance',
@@ -420,18 +355,10 @@ const slides: Slide[] = [
         </div>
 
         <div className="glass rounded-xl p-4 border-emerald-500/20 bg-emerald-500/5">
-          <div className="flex items-start gap-3">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#10b981" strokeWidth="2" className="mt-0.5 shrink-0">
-              <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14" />
-              <polyline points="22 4 12 14.01 9 11.01" />
-            </svg>
-            <div>
-              <p className="text-xs font-semibold text-emerald-300 mb-1">What stays the same</p>
-              <p className="text-[11px] text-white/50 leading-relaxed">
-                Same Mercor Studio platform, same rubric structure (Critical 5pts / Major 3pts / Minor 1pt), same golden scaffolding process, same review workflow, same project (Snowman).
-              </p>
-            </div>
-          </div>
+          <p className="text-xs font-semibold text-emerald-300 mb-1">What stays the same</p>
+          <p className="text-[11px] text-white/50 leading-relaxed">
+            Same Mercor Studio platform, same rubric structure (Critical 5pts / Major 3pts / Minor 1pt), same golden scaffolding process, same review workflow, same project (Snowman).
+          </p>
         </div>
       </div>
     ),
