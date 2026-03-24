@@ -85,12 +85,12 @@ export const ASSESSMENT_QUESTIONS: Question[] = [
       'Generate a 2000-word essay analyzing the geopolitical implications of NATO expansion.',
     ],
     correctIndex: 1,
-    explanation: 'LMArena prompts should focus on everyday consumer topics like home & household, lifestyle, and personal finance. The stove comparison is a realistic consumer question someone would naturally ask an AI assistant.',
+    explanation: 'LMArena prompts should reflect realistic consumer requests. Suggested focus areas include home & household, lifestyle, and personal finance, though prompts aren\'t limited to these. The stove comparison is a natural consumer question someone would ask an AI assistant.',
     category: 'prompts',
   },
   {
     id: 'q7',
-    question: 'Which topic areas should LMArena prompts focus on?',
+    question: 'Which topic areas are suggested as focus areas for LMArena prompts?',
     options: [
       'Advanced software engineering and system design',
       'Home & household, lifestyle, and (simple) personal finance',
@@ -98,7 +98,7 @@ export const ASSESSMENT_QUESTIONS: Question[] = [
       'Legal and medical advice',
     ],
     correctIndex: 1,
-    explanation: 'LMArena prompts should focus on home & household, lifestyle, and simple personal finance topics — the kinds of things an average person would ask an AI assistant.',
+    explanation: 'Suggested focus areas include home & household, lifestyle, and simple personal finance — though prompts are not limited to these. The key is that they reflect realistic consumer requests an average person would ask an AI assistant.',
     category: 'prompts',
   },
   {

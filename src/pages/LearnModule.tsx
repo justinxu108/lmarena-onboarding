@@ -121,7 +121,7 @@ const slides: Slide[] = [
           <ul className="space-y-2">
             <li className="flex items-start gap-2 text-xs text-white/60">
               <span className="text-emerald-400 mt-0.5">&#x2713;</span>
-              Focus on <strong className="text-white/80">home & household, lifestyle, and (simple) personal finance</strong>
+              Suggested focus areas include <strong className="text-white/80">home & household, lifestyle, and (simple) personal finance</strong>, but not limited to these
             </li>
             <li className="flex items-start gap-2 text-xs text-white/60">
               <span className="text-emerald-400 mt-0.5">&#x2713;</span>
@@ -214,7 +214,7 @@ const slides: Slide[] = [
             <span className="text-[10px] font-semibold text-accent-light uppercase tracking-wider">LMArena Tasks</span>
           </div>
           <ComparisonRow label="Model responses" old="Evaluate 1 model" new="Compare 2 models side by side" />
-          <ComparisonRow label="Prompt focus" old="Any domain (per your expertise)" new="Consumer: home, lifestyle, finance" />
+          <ComparisonRow label="Prompt focus" old="Any domain (per your expertise)" new="Consumer-focused (e.g. home, lifestyle, finance)" />
           <ComparisonRow label="Prompt style" old="Designed to cause model failure" new="Simple, natural, open-ended" />
           <ComparisonRow label="Rubric approach" old="Objective grading" new="Preference-based + objective" />
           <ComparisonRow label="Failure range" old="30-70%" new="Less than 75%" />
