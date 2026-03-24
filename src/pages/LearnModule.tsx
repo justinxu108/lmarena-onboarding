@@ -230,6 +230,163 @@ const slides: Slide[] = [
     ),
   },
   {
+    title: 'Example Walkthrough: The Prompt & Responses',
+    subtitle: 'Delta SkyMiles — a real LMArena example',
+    content: (
+      <div className="space-y-4">
+        <div className="glass-subtle rounded-xl p-4">
+          <p className="text-[10px] font-semibold text-accent-light uppercase tracking-wider mb-2">Prompt</p>
+          <p className="text-sm text-white/90 leading-relaxed italic">
+            "I have 127,073 Delta miles available, is this good, or bad and what could I get for it?"
+          </p>
+          <p className="text-[11px] text-white/40 mt-2">
+            Notice: this is a natural, consumer-focused question — exactly the style LMArena tasks call for. Simple, conversational, and something a real person would ask.
+          </p>
+        </div>
+
+        <div className="grid grid-cols-2 gap-3">
+          <div className="glass-subtle rounded-xl p-4">
+            <p className="text-[10px] font-semibold text-red-400 uppercase tracking-wider mb-2">Model A (Client)</p>
+            <ul className="space-y-1.5 text-[11px] text-white/50 leading-relaxed">
+              <li>Says it "depends on your travel goals"</li>
+              <li>Lists domestic flights (25-30k miles), international (60-80k), Asia (120k+)</li>
+              <li>Covers seat upgrades (10-20k domestic, 30-60k international)</li>
+              <li>Mentions merchandise/gift cards but warns of lower value</li>
+              <li>Never directly answers: <strong className="text-white/70">is 127,073 miles good or bad?</strong></li>
+            </ul>
+          </div>
+          <div className="glass-subtle rounded-xl p-4">
+            <p className="text-[10px] font-semibold text-emerald-400 uppercase tracking-wider mb-2">Model B (Preferred)</p>
+            <ul className="space-y-1.5 text-[11px] text-white/50 leading-relaxed">
+              <li><strong className="text-white/70">Directly answers: "This is very good"</strong></li>
+              <li>Puts it in perspective with average ticket costs</li>
+              <li>Explains what you can get: multiple domestic trips, an international economy ticket, or a premium cabin upgrade</li>
+              <li>Concise and clearly organized</li>
+              <li>Addresses the user's actual question first, then provides detail</li>
+            </ul>
+          </div>
+        </div>
+
+        <div className="glass rounded-xl p-4 border-blue-500/20 bg-blue-500/5">
+          <div className="flex items-start gap-3">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#60a5fa" strokeWidth="2" className="mt-0.5 shrink-0">
+              <circle cx="12" cy="12" r="10" />
+              <line x1="12" y1="16" x2="12" y2="12" />
+              <line x1="12" y1="8" x2="12.01" y2="8" />
+            </svg>
+            <div>
+              <p className="text-xs font-semibold text-blue-300 mb-1">Preference: Model B</p>
+              <p className="text-[11px] text-white/50 leading-relaxed">
+                <strong className="text-white/70">Justification:</strong> Response B not only provides information on what can be redeemed for the miles accumulated but also on how to get the best deal. Response B also more clearly answers the direct question before offering the nice-to-have context. Its formatting and order of information are also easier to understand.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    ),
+  },
+  {
+    title: 'Example Walkthrough: The Rubric',
+    subtitle: 'Delta SkyMiles — how the rubric criteria differ from traditional tasks',
+    content: (
+      <div className="space-y-4">
+        <p className="text-xs text-white/50 leading-relaxed">
+          Below is the rubric for the Delta SkyMiles example. Notice how criteria include both objective requirements <em>and</em> preference-based elements that weren't explicitly asked for but make the response more helpful. All criteria are graded against <strong className="text-white/70">Model A</strong> (the client model).
+        </p>
+
+        <div className="glass-subtle rounded-xl overflow-hidden">
+          <div className="grid grid-cols-[auto_1fr_auto_auto_auto] gap-x-3 gap-y-0 text-[10px]">
+            {/* Header */}
+            <div className="px-3 py-2 font-semibold text-white/40 uppercase tracking-wider border-b border-white/10 bg-white/5">#</div>
+            <div className="px-3 py-2 font-semibold text-white/40 uppercase tracking-wider border-b border-white/10 bg-white/5">Description</div>
+            <div className="px-3 py-2 font-semibold text-white/40 uppercase tracking-wider border-b border-white/10 bg-white/5">Weight</div>
+            <div className="px-3 py-2 font-semibold text-white/40 uppercase tracking-wider border-b border-white/10 bg-white/5">Type</div>
+            <div className="px-3 py-2 font-semibold text-white/40 uppercase tracking-wider border-b border-white/10 bg-white/5">Grade</div>
+
+            {/* Row 1 - Critical */}
+            <div className="px-3 py-2.5 text-white/50 border-b border-white/5">1</div>
+            <div className="px-3 py-2.5 text-white/70 border-b border-white/5">States that accumulating 127,073 Delta SkyMiles miles is good.</div>
+            <div className="px-3 py-2.5 border-b border-white/5"><span className="px-1.5 py-0.5 rounded bg-red-500/20 text-red-300 font-semibold">Critical</span></div>
+            <div className="px-3 py-2.5 text-white/50 border-b border-white/5">Objective</div>
+            <div className="px-3 py-2.5 border-b border-white/5"><span className="text-red-400 font-semibold">Not Met</span></div>
+
+            {/* Row 2 */}
+            <div className="px-3 py-2.5 text-white/50 border-b border-white/5">2</div>
+            <div className="px-3 py-2.5 text-white/70 border-b border-white/5">States that miles can be redeemed for flights.</div>
+            <div className="px-3 py-2.5 border-b border-white/5"><span className="px-1.5 py-0.5 rounded bg-red-500/20 text-red-300 font-semibold">Critical</span></div>
+            <div className="px-3 py-2.5 text-white/50 border-b border-white/5">Objective</div>
+            <div className="px-3 py-2.5 border-b border-white/5"><span className="text-emerald-400 font-semibold">Fully Met</span></div>
+
+            {/* Row 3 */}
+            <div className="px-3 py-2.5 text-white/50 border-b border-white/5">3</div>
+            <div className="px-3 py-2.5 text-white/70 border-b border-white/5">States that miles can be redeemed for upgrades.</div>
+            <div className="px-3 py-2.5 border-b border-white/5"><span className="px-1.5 py-0.5 rounded bg-red-500/20 text-red-300 font-semibold">Critical</span></div>
+            <div className="px-3 py-2.5 text-white/50 border-b border-white/5">Objective</div>
+            <div className="px-3 py-2.5 border-b border-white/5"><span className="text-emerald-400 font-semibold">Fully Met</span></div>
+
+            {/* Row 4 - Major, not asked for */}
+            <div className="px-3 py-2.5 text-white/50 border-b border-white/5 bg-amber-500/5">4</div>
+            <div className="px-3 py-2.5 text-white/70 border-b border-white/5 bg-amber-500/5">States that miles can be redeemed for non-flight options, such as merchandise, hotels, or car rentals.</div>
+            <div className="px-3 py-2.5 border-b border-white/5 bg-amber-500/5"><span className="px-1.5 py-0.5 rounded bg-amber-500/20 text-amber-300 font-semibold">Major</span></div>
+            <div className="px-3 py-2.5 text-white/50 border-b border-white/5 bg-amber-500/5">Objective</div>
+            <div className="px-3 py-2.5 border-b border-white/5 bg-amber-500/5"><span className="text-emerald-400 font-semibold">Fully Met</span></div>
+
+            {/* Row 5 - Major, not asked for */}
+            <div className="px-3 py-2.5 text-white/50 border-b border-white/5 bg-amber-500/5">5</div>
+            <div className="px-3 py-2.5 text-white/70 border-b border-white/5 bg-amber-500/5">Provides information on how to get the best value for your miles (off-peak dates, booking early, partner airlines).</div>
+            <div className="px-3 py-2.5 border-b border-white/5 bg-amber-500/5"><span className="px-1.5 py-0.5 rounded bg-amber-500/20 text-amber-300 font-semibold">Major</span></div>
+            <div className="px-3 py-2.5 text-white/50 border-b border-white/5 bg-amber-500/5">Objective</div>
+            <div className="px-3 py-2.5 border-b border-white/5 bg-amber-500/5"><span className="text-red-400 font-semibold">Not Met</span></div>
+
+            {/* Row 6 - Minor */}
+            <div className="px-3 py-2.5 text-white/50 border-b border-white/5">6</div>
+            <div className="px-3 py-2.5 text-white/70 border-b border-white/5">Presents results in a clear, organized manner, such as a table or bullet points.</div>
+            <div className="px-3 py-2.5 border-b border-white/5"><span className="px-1.5 py-0.5 rounded bg-white/10 text-white/50 font-semibold">Minor</span></div>
+            <div className="px-3 py-2.5 text-white/50 border-b border-white/5">Subjective</div>
+            <div className="px-3 py-2.5 border-b border-white/5"><span className="text-emerald-400 font-semibold">Fully Met</span></div>
+
+            {/* Row 7 */}
+            <div className="px-3 py-2.5 text-white/50 border-b border-white/5 bg-amber-500/5">7</div>
+            <div className="px-3 py-2.5 text-white/70 border-b border-white/5 bg-amber-500/5">Provides estimates for what flights can be redeemed for (domestic, international).</div>
+            <div className="px-3 py-2.5 border-b border-white/5 bg-amber-500/5"><span className="px-1.5 py-0.5 rounded bg-amber-500/20 text-amber-300 font-semibold">Major</span></div>
+            <div className="px-3 py-2.5 text-white/50 border-b border-white/5 bg-amber-500/5">Objective</div>
+            <div className="px-3 py-2.5 border-b border-white/5 bg-amber-500/5"><span className="text-emerald-400 font-semibold">Fully Met</span></div>
+
+            {/* Row 8 */}
+            <div className="px-3 py-2.5 text-white/50 border-b border-white/5 bg-amber-500/5">8</div>
+            <div className="px-3 py-2.5 text-white/70 border-b border-white/5 bg-amber-500/5">Provides estimates for upgrades (first class, business class, premium cabin).</div>
+            <div className="px-3 py-2.5 border-b border-white/5 bg-amber-500/5"><span className="px-1.5 py-0.5 rounded bg-amber-500/20 text-amber-300 font-semibold">Major</span></div>
+            <div className="px-3 py-2.5 text-white/50 border-b border-white/5 bg-amber-500/5">Objective</div>
+            <div className="px-3 py-2.5 border-b border-white/5 bg-amber-500/5"><span className="text-emerald-400 font-semibold">Fully Met</span></div>
+
+            {/* Row 9 */}
+            <div className="px-3 py-2.5 text-white/50">9</div>
+            <div className="px-3 py-2.5 text-white/70">Recommends against redeeming miles for non-flight options since these are typically lower value.</div>
+            <div className="px-3 py-2.5"><span className="px-1.5 py-0.5 rounded bg-white/10 text-white/50 font-semibold">Minor</span></div>
+            <div className="px-3 py-2.5 text-white/50">Objective</div>
+            <div className="px-3 py-2.5"><span className="text-emerald-400 font-semibold">Fully Met</span></div>
+          </div>
+        </div>
+
+        <div className="glass rounded-xl p-4 border-amber-500/20 bg-amber-500/5">
+          <div className="flex items-start gap-3">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#f59e0b" strokeWidth="2" className="mt-0.5 shrink-0">
+              <path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z" />
+              <line x1="12" y1="9" x2="12" y2="13" />
+              <line x1="12" y1="17" x2="12.01" y2="17" />
+            </svg>
+            <div>
+              <p className="text-xs font-semibold text-amber-300 mb-1">Notice the highlighted rows</p>
+              <p className="text-[11px] text-white/50 leading-relaxed">
+                Criteria #4, #5, #7, #8 are <strong className="text-white/70">Major</strong> criteria that go <strong className="text-white/70">beyond what the user explicitly asked</strong> — like recommending best-value strategies or providing specific redemption estimates. In a <em>traditional</em> task, these would not qualify as Major. In LMArena tasks, they capture what makes a response genuinely <em>more helpful</em>, reflecting personal expertise and preference.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    ),
+  },
+  {
     title: 'Key Differences Summary',
     subtitle: 'Regular tasks vs. LMArena tasks at a glance',
     content: (
