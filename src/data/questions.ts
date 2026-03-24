@@ -130,10 +130,10 @@ export const ASSESSMENT_QUESTIONS: Question[] = [
   },
   {
     id: 'q10',
-    question: 'What is the acceptable failure range for the autograder score on LMArena tasks?',
+    question: 'What is the acceptable failure range for the rubric score on LMArena tasks?',
     options: [
       '30-70% (same as regular tasks)',
-      'Less than 75%',
+      'Less than 75%, though you should still try to include criteria that boost the score above 0%',
       'Less than 50%',
       'Exactly 50%',
     ],
@@ -200,7 +200,7 @@ export const ASSESSMENT_QUESTIONS: Question[] = [
     options: [
       'Both require comparing two model responses',
       'Both use the same rubric weight categories (Critical, Major, Minor)',
-      'Both focus on consumer topics',
+      'Both focus on professional and technical topics',
       'Both have the same failure range for scores',
     ],
     correctIndex: 1,

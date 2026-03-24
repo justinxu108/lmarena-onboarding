@@ -23,16 +23,23 @@ function ComparisonRow({ label, old, new: newVal }: { label: string; old: string
   );
 }
 
-function StepCard({ number, title, description }: { number: number; title: string; description: string }) {
+function StepCard({ number, title, description, image }: { number: number; title: string; description: string; image?: string }) {
   return (
-    <div className="flex gap-3 items-start">
-      <span className="flex items-center justify-center w-8 h-8 rounded-xl bg-accent/20 text-accent-light text-sm font-bold shrink-0">
-        {number}
-      </span>
-      <div>
-        <p className="text-sm font-semibold text-white/90 mb-0.5">{title}</p>
-        <p className="text-xs text-white/50 leading-relaxed">{description}</p>
+    <div className="space-y-2">
+      <div className="flex gap-3 items-start">
+        <span className="flex items-center justify-center w-8 h-8 rounded-xl bg-accent/20 text-accent-light text-sm font-bold shrink-0">
+          {number}
+        </span>
+        <div>
+          <p className="text-sm font-semibold text-white/90 mb-0.5">{title}</p>
+          <p className="text-xs text-white/50 leading-relaxed">{description}</p>
+        </div>
       </div>
+      {image && (
+        <div className="ml-11 rounded-xl overflow-hidden border border-white/10">
+          <img src={image} alt={title} className="w-full" />
+        </div>
+      )}
     </div>
   );
 }
@@ -69,6 +76,21 @@ const slides: Slide[] = [
             </li>
           </ul>
         </div>
+
+        <div className="grid grid-cols-2 gap-3">
+          <div className="space-y-1.5">
+            <p className="text-[10px] font-semibold text-white/40 uppercase tracking-wider">Writing Dashboard</p>
+            <div className="rounded-xl overflow-hidden border border-white/10">
+              <img src="/images/unclaimed-tasks.png" alt="LMArena Unclaimed Tasks Dashboard" className="w-full" />
+            </div>
+          </div>
+          <div className="space-y-1.5">
+            <p className="text-[10px] font-semibold text-white/40 uppercase tracking-wider">Review Queue</p>
+            <div className="rounded-xl overflow-hidden border border-white/10">
+              <img src="/images/review-queue.png" alt="LMArena Review Queue" className="w-full" />
+            </div>
+          </div>
+        </div>
       </div>
     ),
   },
@@ -81,26 +103,31 @@ const slides: Slide[] = [
           number={1}
           title="Submit Your Prompt & Compare Responses"
           description="Enter your prompt in the Conversation tab. Two model responses appear side by side (Model 1 and Model 2). Read both carefully to determine which is stronger."
+          image="/images/conversation-tab.png"
         />
         <StepCard
           number={2}
           title="Record Your Preference"
           description="In the Annotation tab, select your preferred model and confidence level (High/Medium/Low). Write a 20-100 word justification. You can only proceed if you select Model 2 or Neither."
+          image="/images/model-preference.png"
         />
         <StepCard
           number={3}
           title="Create the Golden Scaffolding"
           description="Write bullet points outlining what an ideal response should include: core requirements, quality factors, and strong elements from the preferred response that the client model missed."
+          image="/images/golden-scaffolding.png"
         />
         <StepCard
           number={4}
           title="Generate & Review the Rubric"
           description="Click 'Generate Rubric' to auto-create criteria from your scaffolding. Review descriptions, verify tags (weight, category, type), and grade each criterion against the client model's response."
+          image="/images/rubric-table.png"
         />
         <StepCard
           number={5}
           title="Submit the Task"
           description="Ensure all submission requirements are met (completed turn, preference selected, at least 3 criteria, score between acceptable range, etc.), then submit for review."
+          image="/images/submission-requirements.png"
         />
       </div>
     ),
