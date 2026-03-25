@@ -195,7 +195,7 @@ const slides: Slide[] = [
     content: (
       <div className="space-y-5">
         <p className="text-sm text-white/70 leading-relaxed">
-          LMArena prompts should reflect <B>realistic consumer requests</B> — the kind of thing an average person would naturally ask an AI assistant. The simpler the better: the best prompts are 3-5 sentences, under 100 words, with fewer than 5 constraints.
+          LMArena prompts should reflect <B>realistic consumer requests</B> — the kind of thing an average person would naturally ask an AI assistant. A major change from regular tasks: <B>simpler, more open-ended asks are preferred</B>. However, the response must still be <B>objectively gradeable</B> — prompts like "generate a lesson plan" or "draft an email" with infinite valid answers would not work, because you can't build a rubric 5+ experts would agree on.
         </p>
 
         <div className="glass-subtle rounded-xl p-4">
