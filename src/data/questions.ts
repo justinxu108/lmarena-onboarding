@@ -145,8 +145,6 @@ export const ASSESSMENT_QUESTIONS: Question[] = [
     explanation: 'A 72% score is above the regular task ceiling of 70%, so it would fail under regular rules. But it\'s below the LMArena threshold of 75%, so it passes for LMArena tasks. This is exactly the score the Delta SkyMiles example produces (21/29 = 72%).',
     category: 'differences',
   },
-];
-
   {
     id: 'q11',
     question: 'Model 1 gives a factually accurate but poorly organized answer. Model 2 is well-organized but contains a minor factual error. You prefer Model 2. What should the rubric prioritize?',
