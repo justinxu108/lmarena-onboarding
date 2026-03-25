@@ -156,9 +156,9 @@ const slides: Slide[] = [
         <div className="glass-subtle rounded-xl p-4">
           <p className="text-[11px] font-semibold text-accent-light uppercase tracking-wider mb-3">Key Principles</p>
           <ul className="space-y-2.5">
-            <Bullet color="green"><B>Focus on everyday use cases</B> — mimic real-world situations where someone would turn to an AI. Suggested areas include home &amp; household, lifestyle, and personal finance, but not limited to these.</Bullet>
-            <Bullet color="green"><B>Keep them simple and open-ended</B> — avoid overly rigid constraints, artificial formatting requirements, or excessive instructions</Bullet>
-            <Bullet color="green"><B>Use natural phrasing</B> — should sound like something a person would actually type into ChatGPT or another AI assistant</Bullet>
+            <Bullet color="green"><B>Realistic consumer requests (EC8):</B> Mimic real-world situations where someone would turn to an AI. Suggested areas include home &amp; household, lifestyle, and personal finance, but not limited to these.</Bullet>
+            <Bullet color="green"><B>Simple and open-ended (EC9):</B> Under 100 words, fewer than 5 constraints. Avoid rigid formatting requirements or excessive instructions — this is enforced more strictly for LMArena.</Bullet>
+            <Bullet color="green"><B>Use natural phrasing:</B> Should sound like something a person would actually type into ChatGPT or another AI assistant</Bullet>
           </ul>
         </div>
 
@@ -199,9 +199,9 @@ const slides: Slide[] = [
         <div className="glass-subtle rounded-xl p-4">
           <p className="text-[11px] font-semibold text-accent-light uppercase tracking-wider mb-3">What Changed</p>
           <ul className="space-y-3">
-            <Bullet color="amber"><B>Rubric score range:</B> The acceptable score is now anything less than 75% (regular tasks require 30-70%). Even if below 30%, try to include criteria the client model does meet so the score isn't 0%.</Bullet>
-            <Bullet color="amber"><B>Major criteria expanded:</B> Can now include elements that aren't explicitly asked for in the prompt but would make the response much more useful or helpful. This is the biggest change.</Bullet>
-            <Bullet color="amber"><B>Reflect the preferred response:</B> The rubric should capture elements from the non-client model's response that improved quality — what made it better.</Bullet>
+            <Bullet color="amber"><B>Rubric score range (EC4):</B> The acceptable score is now anything less than 75% (regular tasks require 30-70%). Even if below 30%, try to include criteria the client model does meet so the score isn't 0%.</Bullet>
+            <Bullet color="amber"><B>Major criteria expanded (EC5):</B> Can now include elements that aren't explicitly asked for in the prompt but would make the response much more useful or helpful. This is the biggest change.</Bullet>
+            <Bullet color="amber"><B>Reflect the preferred response (EC13):</B> Beyond-prompt criteria are valid if they capture why the preferred response was better. Rubric/prompt mismatch rules apply more loosely for LMArena.</Bullet>
           </ul>
         </div>
 
