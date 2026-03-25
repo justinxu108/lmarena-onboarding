@@ -147,4 +147,19 @@ export const ASSESSMENT_QUESTIONS: Question[] = [
   },
 ];
 
-export const PASSING_SCORE = 0.8; // 80% to pass (8/10 correct)
+  {
+    id: 'q11',
+    question: 'Model 1 gives a factually accurate but poorly organized answer. Model 2 is well-organized but contains a minor factual error. You prefer Model 2. What should the rubric prioritize?',
+    options: [
+      'Factual accuracy, since Model 1 was stronger there',
+      'The quality factors that made Model 2 preferred, while grading factual criteria as Fully Met against Model 1',
+      'Only the elements explicitly requested in the prompt',
+      'Both models equally, comparing their strengths side by side',
+    ],
+    correctIndex: 1,
+    explanation: 'The rubric should capture what made Model 2 preferred — organization, clarity, directness — as criteria. Factual accuracy criteria should still be included but graded against Model 1 (the client). If Model 1 got the facts right, those criteria are marked "Fully Met." The rubric reflects the full picture: Model 1 may pass factual criteria but fail on the quality/preference criteria that made Model 2 better.',
+    category: 'rubrics',
+  },
+];
+
+export const PASSING_SCORE = 0.82; // ~82% to pass (9/11 correct)
