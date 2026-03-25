@@ -11,15 +11,15 @@ export const ASSESSMENT_QUESTIONS: Question[] = [
   // --- Workflow ---
   {
     id: 'q1',
-    question: 'What is fundamentally different about LMArena tasks compared to regular Project Snowman tasks?',
+    question: 'You select "Neither" as your preference because both model responses are inadequate. How should you approach the rubric?',
     options: [
-      'You write longer, more complex prompts',
-      'You compare two model responses side by side instead of evaluating one',
-      'You use a different rubric weight system',
-      'You skip the golden scaffolding step',
+      'You cannot proceed — "Neither" blocks task submission',
+      'Copy the rubric from whichever model scored higher',
+      'Write a rubric capturing the essential aspects of a good response that neither model adequately provides',
+      'Write a rubric that only captures what both models got wrong',
     ],
-    correctIndex: 1,
-    explanation: 'The core difference is that LMArena tasks present two model responses (Model 1 and Model 2) for comparison, whereas regular tasks evaluate a single model\'s output against your rubric.',
+    correctIndex: 2,
+    explanation: '"Neither" is a valid preference that allows you to proceed (alongside Model 2). When neither response is adequate, your rubric should capture what a good response would include — the essential elements both models failed to deliver. You still grade all criteria against Model 1 (the client).',
     category: 'workflow',
   },
   {

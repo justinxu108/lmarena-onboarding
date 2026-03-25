@@ -118,7 +118,7 @@ const slides: Slide[] = [
         <StepCard
           number={2}
           title="Record Your Preference"
-          description="Select your preferred model and confidence level. Write a 20-100 word justification. You can only proceed if you select Model 2 or Neither — if Model 1 is better, you cannot continue with that task."
+          description="Select your preferred model and confidence level. Write a 20-100 word justification. You can only proceed if you select Model 2 or Neither — if Model 1 is better, you cannot continue with that task. If Neither is selected, your rubric should capture the essential aspects of a good response that neither model adequately provides."
           image="/images/model-preference.png"
         />
         <StepCard
