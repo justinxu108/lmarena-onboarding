@@ -24,8 +24,12 @@ export default function EmailEntry({ onContinue, onBack }: EmailEntryProps) {
     const trimmed = email.trim().toLowerCase();
     if (!trimmed) { setError('Please enter your email address.'); return; }
     if (!validate(trimmed)) { setError('Please enter a valid email address.'); return; }
-    if (trimmed.endsWith('@c-mercor.com') || trimmed.endsWith('@mercor.expert')) {
-      setError('Please use your personal email tied to your Mercor account, not your Mercor contractor email.');
+    if (!trimmed.endsWith('@mercor.expert')) {
+      if (trimmed.endsWith('@c-mercor.com')) {
+        setError('Please use your @mercor.expert email, not your @c-mercor.com email.');
+      } else {
+        setError('Please use your @mercor.expert email address (e.g., firstname.lastname@mercor.expert).');
+      }
       return;
     }
 
@@ -64,7 +68,7 @@ export default function EmailEntry({ onContinue, onBack }: EmailEntryProps) {
           Enter Your Email
         </h2>
         <p className="text-sm text-white/40 text-center mb-8 leading-relaxed">
-          This must be the personal email linked to your Mercor account.
+          Use your <strong className="text-white/60">@mercor.expert</strong> email address.
         </p>
 
         <motion.div
@@ -83,15 +87,15 @@ export default function EmailEntry({ onContinue, onBack }: EmailEntryProps) {
               <div>
                 <p className="text-xs font-semibold text-amber-300 mb-1">Important</p>
                 <p className="text-[11px] text-white/50 leading-relaxed">
-                  Use your <strong className="text-white/70">personal email</strong> (e.g., Gmail, Yahoo) linked to your Mercor account.
-                  This is <strong className="text-white/70">not</strong> your Mercor-provisioned contractor email.
+                  Use your <strong className="text-white/70">@mercor.expert</strong> email address (e.g., firstname.lastname@mercor.expert).
+                  Do <strong className="text-white/70">not</strong> use a personal email or @c-mercor.com email.
                 </p>
               </div>
             </div>
           </div>
 
           <label className="block text-xs font-semibold text-white/50 mb-2">
-            Personal Email Address
+            Mercor Expert Email
           </label>
           <input
             ref={inputRef}
@@ -99,7 +103,7 @@ export default function EmailEntry({ onContinue, onBack }: EmailEntryProps) {
             value={email}
             onChange={(e) => { setEmail(e.target.value); setError(''); }}
             onKeyDown={handleKeyDown}
-            placeholder="you@gmail.com"
+            placeholder="firstname.lastname@mercor.expert"
             className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-sm text-white/90 placeholder-white/25 focus:outline-none focus:border-accent/40 focus:ring-1 focus:ring-accent/20 transition-all"
           />
 
