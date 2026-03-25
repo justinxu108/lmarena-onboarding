@@ -59,6 +59,42 @@ function B({ children }: { children: React.ReactNode }) {
   return <strong className="text-white/80 font-semibold">{children}</strong>;
 }
 
+function InfoPopup({ title, children }: { title: string; children: React.ReactNode }) {
+  const [open, setOpen] = useState(false);
+  return (
+    <>
+      <button
+        onClick={() => setOpen(true)}
+        className="inline-flex items-center gap-1 ml-1 px-1.5 py-0.5 rounded bg-accent/15 text-accent-light text-[9px] font-semibold uppercase tracking-wider hover:bg-accent/25 transition-colors cursor-pointer"
+      >
+        <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" className="shrink-0"><circle cx="12" cy="12" r="10" /><line x1="12" y1="16" x2="12" y2="12" /><line x1="12" y1="8" x2="12.01" y2="8" /></svg>
+        Details
+      </button>
+      {open && (
+        <div className="fixed inset-0 z-[9999] flex items-center justify-center p-6" onClick={() => setOpen(false)}>
+          <div className="absolute inset-0 bg-black/60" />
+          <motion.div
+            className="relative glass-strong rounded-2xl p-6 max-w-md w-full"
+            initial={{ opacity: 0, scale: 0.95 }}
+            animate={{ opacity: 1, scale: 1 }}
+            onClick={(e) => e.stopPropagation()}
+          >
+            <div className="flex items-center justify-between mb-4">
+              <h3 className="text-sm font-semibold text-white/90">{title}</h3>
+              <button onClick={() => setOpen(false)} className="w-7 h-7 rounded-lg bg-white/10 hover:bg-white/20 flex items-center justify-center text-white/60 hover:text-white transition-all">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round"><line x1="18" y1="6" x2="6" y2="18" /><line x1="6" y1="6" x2="18" y2="18" /></svg>
+              </button>
+            </div>
+            <div className="text-xs text-white/60 leading-relaxed space-y-3">
+              {children}
+            </div>
+          </motion.div>
+        </div>
+      )}
+    </>
+  );
+}
+
 const slides: Slide[] = [
   // ─── Slide 1: What are LMArena Tasks? ───
   {
@@ -79,8 +115,9 @@ const slides: Slide[] = [
           <p className="text-[11px] font-semibold text-accent-light uppercase tracking-wider mb-3">Key Facts</p>
           <ul className="space-y-2.5">
             <Bullet>All LMArena tasks are classified as <B>LLM Power User</B> tasks</Bullet>
-            <Bullet>Tasks are found in dedicated <B>LMArena dashboards</B>, separate from regular task queues</Bullet>
-            <Bullet>After claiming, they appear in your regular Writing/Reviewing dashboards</Bullet>
+            <Bullet>Writing dashboard: <B>"LMArena Unclaimed Tasks"</B> — claim tasks for writing here</Bullet>
+            <Bullet>Reviewing dashboard: <B>"[R] LMArena Review Queue"</B> — claim tasks for reviewing here</Bullet>
+            <Bullet>After claiming, they appear in your regular Writing/Reviewing task dashboards</Bullet>
             <Bullet>The Studio UI labels models as <B>Model 1</B> and <B>Model 2</B> (examples may also say Model A/B — same thing: Model 1 = Model A = client)</Bullet>
           </ul>
         </div>
@@ -118,9 +155,17 @@ const slides: Slide[] = [
         <StepCard
           number={2}
           title="Record Your Preference"
-          description="Select your preferred model and confidence level. Write a 20-100 word justification. You can only proceed if you select Model 2 or Neither — if Model 1 is better, you cannot continue with that task. If Neither is selected, your rubric should capture the essential aspects of a good response that neither model adequately provides."
+          description="Select your preferred model, confidence level, and write a 20-100 word justification. You can only proceed if you select Model 2 or Neither — if Model 1 is better, you cannot continue with that task. If Neither is selected, your rubric should capture the essential aspects of a good response that neither model adequately provides."
           image="/images/model-preference.png"
         />
+        <div className="ml-11 glass-subtle rounded-xl p-3">
+          <p className="text-[10px] font-semibold text-white/40 uppercase tracking-wider mb-2">Confidence Levels</p>
+          <ul className="space-y-1 text-[11px] text-white/60 leading-relaxed">
+            <li><B>High</B> — Absolutely sure, without a doubt of the preference</li>
+            <li><B>Medium</B> — Fairly sure, due to a major omission or error by Model 1</li>
+            <li><B>Low</B> — Somewhat sure, could go either way — Model 2 is preferred due to formatting, organization, or minor advantages</li>
+          </ul>
+        </div>
         <StepCard
           number={3}
           title="Create the Golden Scaffolding"
@@ -193,14 +238,19 @@ const slides: Slide[] = [
     content: (
       <div className="space-y-5">
         <p className="text-sm text-white/70 leading-relaxed">
-          LMArena rubrics are <B>more preference-based</B> than regular rubrics. The guiding principle is that rubrics can capture <B>personal perspectives and expertise</B>, reflecting what makes a response genuinely helpful — not just checking for correct reasoning.
+          LMArena rubrics are <B>more preference-based</B> than regular rubrics. They can capture <B>personal perspectives and expertise</B>, reflecting what makes a response genuinely helpful. However, the <B>5+ expert alignment rule still applies</B> — any criterion you include should be something that 5 or more qualified experts would agree on.
         </p>
 
         <div className="glass-subtle rounded-xl p-4">
           <p className="text-[11px] font-semibold text-accent-light uppercase tracking-wider mb-3">What Changed</p>
           <ul className="space-y-3">
-            <Bullet color="amber"><B>Rubric score range (EC4):</B> The acceptable score is now anything less than 75% (regular tasks require 30-70%). Even if below 30%, try to include criteria the client model does meet so the score isn't 0%.</Bullet>
-            <Bullet color="amber"><B>Major criteria expanded (EC5):</B> Can now include elements that aren't explicitly asked for in the prompt but would make the response much more useful or helpful. This is the biggest change.</Bullet>
+            <Bullet color="amber"><B>Rubric score range (EC4):</B> The acceptable score is now anything less than 75% (regular tasks require 30-70%). Ideally keep it above 0%.
+              <InfoPopup title="Score Range Clarification">
+                <p>A score of 0% means the client model failed every single criterion. Reviewers should <B>not reject a task solely for being 0%</B>, but if it's at all possible to include criteria that bring the score above 0%, that is strongly preferred.</p>
+                <p>These can be <B>trivial criteria that the client model clearly got right</B> — for example, formatting in bullet points, using correct grammar, or addressing the general topic. Find <em>something</em> the model did well, even if it's minor.</p>
+              </InfoPopup>
+            </Bullet>
+            <Bullet color="amber"><B>Major criteria expanded (EC5):</B> Can now include elements that aren't explicitly asked for in the prompt but would make the response much more useful or helpful. This is the biggest change — but criteria must still pass the <B>5+ expert alignment</B> standard.</Bullet>
             <Bullet color="amber"><B>Reflect the preferred response (EC13):</B> Beyond-prompt criteria are valid if they capture why the preferred response was better. Rubric/prompt mismatch rules apply more loosely for LMArena.</Bullet>
           </ul>
         </div>
@@ -315,18 +365,26 @@ const slides: Slide[] = [
           </table>
         </div>
 
-        <div className="grid grid-cols-2 gap-3">
+        <div className="space-y-3">
           <div className="glass rounded-xl p-3 border-amber-500/20 bg-amber-500/5">
             <p className="text-[10px] font-semibold text-amber-300 uppercase tracking-wider mb-1.5">Key Takeaway</p>
             <p className="text-[11px] text-white/50 leading-relaxed">
               Criteria #4-5, #7-8 are Major criteria <span className="text-white/70 font-medium">beyond what the user asked</span> — like best-value strategies and redemption estimates. In traditional tasks these wouldn't qualify as Major.
             </p>
           </div>
-          <div className="glass rounded-xl p-3 border-accent/20 bg-accent/5">
-            <p className="text-[10px] font-semibold text-accent-light uppercase tracking-wider mb-1.5">Score Breakdown</p>
-            <p className="text-[11px] text-white/50 leading-relaxed">
-              Model 1 scores <span className="text-white/70 font-medium">21/29 = 72%</span>. This is <span className="text-white/70 font-medium">below 75%</span>, so it passes LMArena — but would fail regular tasks (above 70%).
-            </p>
+          <div className="grid grid-cols-2 gap-3">
+            <div className="glass rounded-xl p-3 border-emerald-500/20 bg-emerald-500/5">
+              <p className="text-[10px] font-semibold text-emerald-300 uppercase tracking-wider mb-1.5">Expert Alignment</p>
+              <p className="text-[11px] text-white/50 leading-relaxed">
+                Criterion #1 ("127,073 miles is good") works because <span className="text-white/70 font-medium">5+ experts would agree</span> that this amount is objectively good. Preference-based criteria must still be grounded in expert consensus, not personal opinion alone.
+              </p>
+            </div>
+            <div className="glass rounded-xl p-3 border-accent/20 bg-accent/5">
+              <p className="text-[10px] font-semibold text-accent-light uppercase tracking-wider mb-1.5">Score Breakdown</p>
+              <p className="text-[11px] text-white/50 leading-relaxed">
+                Model 1 scores <span className="text-white/70 font-medium">21/29 = 72%</span>. Below 75%, so it passes LMArena — but would fail regular tasks (above 70%).
+              </p>
+            </div>
           </div>
         </div>
       </div>
