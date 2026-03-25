@@ -160,4 +160,4 @@ export const ASSESSMENT_QUESTIONS: Question[] = [
   },
 ];
 
-export const PASSING_SCORE = 0.82; // ~82% to pass (9/11 correct)
+export const PASSING_SCORE = 0.81; // 9/11 correct (81.8%) passes
