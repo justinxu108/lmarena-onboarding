@@ -72,20 +72,21 @@ function InfoPopup({ title, children }: { title: string; children: React.ReactNo
       </button>
       {open && (
         <div className="fixed inset-0 z-[9999] flex items-center justify-center p-6" onClick={() => setOpen(false)}>
-          <div className="absolute inset-0 bg-black/60" />
+          <div className="absolute inset-0 bg-black/80" />
           <motion.div
-            className="relative glass-strong rounded-2xl p-6 max-w-md w-full"
+            className="relative rounded-2xl p-6 max-w-md w-full border border-white/15"
+            style={{ background: '#1a1a2e' }}
             initial={{ opacity: 0, scale: 0.95 }}
             animate={{ opacity: 1, scale: 1 }}
             onClick={(e) => e.stopPropagation()}
           >
             <div className="flex items-center justify-between mb-4">
-              <h3 className="text-sm font-semibold text-white/90">{title}</h3>
+              <h3 className="text-sm font-semibold text-white">{title}</h3>
               <button onClick={() => setOpen(false)} className="w-7 h-7 rounded-lg bg-white/10 hover:bg-white/20 flex items-center justify-center text-white/60 hover:text-white transition-all">
                 <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round"><line x1="18" y1="6" x2="6" y2="18" /><line x1="6" y1="6" x2="18" y2="18" /></svg>
               </button>
             </div>
-            <div className="text-xs text-white/60 leading-relaxed space-y-3">
+            <div className="text-sm text-white/80 leading-relaxed space-y-3">
               {children}
             </div>
           </motion.div>
@@ -247,7 +248,7 @@ const slides: Slide[] = [
             <Bullet color="amber"><B>Rubric score range (EC4):</B> The acceptable score is now anything less than 75% (regular tasks require 30-70%). Ideally keep it above 0%.
               <InfoPopup title="Score Range Clarification">
                 <p>A score of 0% means the client model failed every single criterion. Reviewers should <B>not reject a task solely for being 0%</B>, but if it's at all possible to include criteria that bring the score above 0%, that is strongly preferred.</p>
-                <p>These can be <B>trivial criteria that the client model clearly got right</B> — for example, formatting in bullet points, using correct grammar, or addressing the general topic. Find <em>something</em> the model did well, even if it's minor.</p>
+                <p>Look for <B>high-level pieces of information or reasoning the client model got right</B>, or style/formatting elements like presenting results in bullet points or using clear section headers. Find <em>something</em> the model did well, even if it's a broad or easy criterion.</p>
               </InfoPopup>
             </Bullet>
             <Bullet color="amber"><B>Major criteria expanded (EC5):</B> Can now include elements that aren't explicitly asked for in the prompt but would make the response much more useful or helpful. This is the biggest change — but criteria must still pass the <B>5+ expert alignment</B> standard.</Bullet>
