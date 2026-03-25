@@ -28,7 +28,7 @@ export default function EmailEntry({ onContinue, onBack }: EmailEntryProps) {
       if (trimmed.endsWith('@c-mercor.com')) {
         setError('Please use your @mercor.expert email, not your @c-mercor.com email.');
       } else {
-        setError('Please use your @mercor.expert email address (e.g., firstname.lastname@mercor.expert).');
+        setError('Please use your @mercor.expert email address (e.g., you@mercor.expert).');
       }
       return;
     }
@@ -87,7 +87,7 @@ export default function EmailEntry({ onContinue, onBack }: EmailEntryProps) {
               <div>
                 <p className="text-xs font-semibold text-amber-300 mb-1">Important</p>
                 <p className="text-[11px] text-white/50 leading-relaxed">
-                  Use your <strong className="text-white/70">@mercor.expert</strong> email address (e.g., firstname.lastname@mercor.expert).
+                  Use your <strong className="text-white/70">@mercor.expert</strong> email address (e.g., you@mercor.expert).
                   Do <strong className="text-white/70">not</strong> use a personal email or @c-mercor.com email.
                 </p>
               </div>
@@ -103,7 +103,7 @@ export default function EmailEntry({ onContinue, onBack }: EmailEntryProps) {
             value={email}
             onChange={(e) => { setEmail(e.target.value); setError(''); }}
             onKeyDown={handleKeyDown}
-            placeholder="firstname.lastname@mercor.expert"
+            placeholder="you@mercor.expert"
             className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-sm text-white/90 placeholder-white/25 focus:outline-none focus:border-accent/40 focus:ring-1 focus:ring-accent/20 transition-all"
           />
 
